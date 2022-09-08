@@ -1,28 +1,33 @@
 {
-    "dependencies": {
-        "react": "^17.0.2",
-        "react-bootstrap-table-next": "^4.0.3",
-        "react-dom": "^17.0.2",
-        "react-google-charts": "^4.0.0",
-        "react-router-dom": "^5.3.0",
-        "react-scripts": "4.0.3",
-        "react-vis": "^1.11.7",
-        "shards-react": "^1.0.3",
-        "web-vitals": "^1.1.2"
-    },
-    "scripts": {
-        "start": "react-scripts start"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    }
+  "name": "iTinerary",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmcnally1/iTinerary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmcnally1/iTinerary/issues"
+  },
+  "homepage": "https://github.com/mmcnally1/iTinerary#readme",
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-refresh": "^0.14.0",
+    "react-router-dom": "^6.3.0"
+  }
 }
