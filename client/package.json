@@ -22,11 +22,14 @@
   },
   "homepage": "https://github.com/mmcnally1/iTinerary#readme",
   "devDependencies": {
-    "parcel": "^2.7.0"
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
+    "leaflet": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-leaflet": "^4.0.2",
     "react-refresh": "^0.14.0",
     "react-router-dom": "^6.3.0"
   }

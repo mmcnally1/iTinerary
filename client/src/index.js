@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {
-    BrowserRouter as Router,
+    BrowserRouter,
+    Routes,
     Route,
-    Switch
 } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
@@ -12,31 +12,15 @@ import UserPage from './pages/UserPage';
 
 function App() {
     return (
-        <div>
-            <Router>
-                <Switch>
-                    <Route exact
-                                    path="/"
-                                    render={() => (
-                                        <HomePage />
-                                    )} />
-                    <Route exact
-                                    path="/profile"
-                                    render={() => (
-                                        <UserPage />
-                                    )} />
-                    <Route exact
-                                    path="/trip"
-                                    render={() => (
-                                        <TripPage />
-                                    )} />
-                </Switch>
-            </Router>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/profile" element={<UserPage />} />
+                <Route path="/trip" element={<TripPage />} />
+            </Routes>
+        </BrowserRouter>
     )
 }
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
