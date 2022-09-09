@@ -1,0 +1,19 @@
+* {
+    --textsize: 16px;
+    --textcolor: #101010;
+    --bgcolor: #f0f0f0;
+}
+body{max-width:650px;
+    margin:40px auto;
+    padding:0 10px;
+    font: var(--textsize)/1.35 system-ui, sans-serif;
+    color: var(--textcolor);
+    background: var(--bgcolor);
+}
+h1,h2,h3{line-height:1.2}
+@media (prefers-color-scheme: dark){body{color:#ccc;background:black}a:link{color:#5bf}a:visited{color:#ccf}}
+
+.leaflet-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
