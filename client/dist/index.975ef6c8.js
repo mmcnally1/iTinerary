@@ -28938,11 +28938,22 @@ var _reactLeaflet = require("react-leaflet");
 function Map({ center , zoom , markers  }) {
     const content = markers.map((item, idx)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactLeaflet.Marker), {
             position: item.position,
+            eventHandlers: {
+                mouseover: (e)=>{
+                    e.target.openPopup();
+                },
+                mouseout: (e)=>{
+                    e.target.closePopup();
+                },
+                click: (e)=>{
+                    console.log("marker clicked");
+                }
+            },
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactLeaflet.Popup), {
                 children: item.content
             }, void 0, false, {
                 fileName: "src/components/Map.js",
-                lineNumber: 12,
+                lineNumber: 24,
                 columnNumber: 7
             }, this)
         }, idx, false, {
@@ -28960,14 +28971,14 @@ function Map({ center , zoom , markers  }) {
                 url: "https:{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             }, void 0, false, {
                 fileName: "src/components/Map.js",
-                lineNumber: 21,
+                lineNumber: 33,
                 columnNumber: 5
             }, this),
             content
         ]
     }, void 0, true, {
         fileName: "src/components/Map.js",
-        lineNumber: 17,
+        lineNumber: 29,
         columnNumber: 11
     }, this);
 }
@@ -29033,60 +29044,48 @@ var _videoOverlayJs = require("./VideoOverlay.js");
 var _wmstileLayerJs = require("./WMSTileLayer.js");
 var _zoomControlJs = require("./ZoomControl.js");
 
-},{"./hooks.js":false,"./AttributionControl.js":false,"./Circle.js":false,"./CircleMarker.js":false,"./FeatureGroup.js":false,"./GeoJSON.js":false,"./ImageOverlay.js":false,"./LayerGroup.js":false,"./LayersControl.js":false,"./MapContainer.js":"iT5ir","./Marker.js":"5vBYT","./Pane.js":false,"./Polygon.js":false,"./Polyline.js":false,"./Popup.js":"2kouU","./Rectangle.js":false,"./ScaleControl.js":false,"./SVGOverlay.js":false,"./TileLayer.js":"lNK7D","./Tooltip.js":false,"./VideoOverlay.js":false,"./WMSTileLayer.js":false,"./ZoomControl.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iT5ir":[function(require,module,exports) {
+},{"./hooks.js":"2gogY","./AttributionControl.js":false,"./Circle.js":false,"./CircleMarker.js":false,"./FeatureGroup.js":false,"./GeoJSON.js":false,"./ImageOverlay.js":false,"./LayerGroup.js":false,"./LayersControl.js":false,"./MapContainer.js":"iT5ir","./Marker.js":"5vBYT","./Pane.js":false,"./Polygon.js":false,"./Polyline.js":false,"./Popup.js":"2kouU","./Rectangle.js":false,"./ScaleControl.js":false,"./SVGOverlay.js":false,"./TileLayer.js":"lNK7D","./Tooltip.js":false,"./VideoOverlay.js":false,"./WMSTileLayer.js":false,"./ZoomControl.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2gogY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MapContainer", ()=>MapContainer);
+parcelHelpers.export(exports, "useMap", ()=>useMap);
+parcelHelpers.export(exports, "useMapEvent", ()=>useMapEvent);
+parcelHelpers.export(exports, "useMapEvents", ()=>useMapEvents);
 var _core = require("@react-leaflet/core");
-var _leaflet = require("leaflet");
 var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-function _extends() {
-    _extends = Object.assign || function(target) {
-        for(var i = 1; i < arguments.length; i++){
-            var source = arguments[i];
-            for(var key in source)if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
-        }
-        return target;
-    };
-    return _extends.apply(this, arguments);
+function useMap() {
+    return (0, _core.useLeafletContext)().map;
 }
-function MapContainerComponent({ bounds , boundsOptions , center , children , className , id , placeholder , style , whenReady , zoom , ...options }, forwardedRef) {
-    const [props] = (0, _react.useState)({
-        className,
-        id,
-        style
-    });
-    const [context, setContext] = (0, _react.useState)(null);
-    (0, _react.useImperativeHandle)(forwardedRef, ()=>context?.map ?? null, [
-        context
-    ]);
-    const mapRef = (0, _react.useCallback)((node)=>{
-        if (node !== null && context === null) {
-            const map = new (0, _leaflet.Map)(node, options);
-            if (center != null && zoom != null) map.setView(center, zoom);
-            else if (bounds != null) map.fitBounds(bounds, boundsOptions);
-            if (whenReady != null) map.whenReady(whenReady);
-            setContext((0, _core.createLeafletContext)(map));
-        }
-    }, []);
-    (0, _react.useEffect)(()=>{
-        return ()=>{
-            context?.map.remove();
+function useMapEvent(type, handler) {
+    const map = useMap();
+    (0, _react.useEffect)(function addMapEventHandler() {
+        // @ts-ignore event type
+        map.on(type, handler);
+        return function removeMapEventHandler() {
+            // @ts-ignore event type
+            map.off(type, handler);
         };
     }, [
-        context
+        map,
+        type,
+        handler
     ]);
-    const contents = context ? /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _core.LeafletProvider), {
-        value: context
-    }, children) : placeholder ?? null;
-    return /*#__PURE__*/ (0, _reactDefault.default).createElement("div", _extends({}, props, {
-        ref: mapRef
-    }), contents);
+    return map;
 }
-const MapContainer = /*#__PURE__*/ (0, _react.forwardRef)(MapContainerComponent);
+function useMapEvents(handlers) {
+    const map = useMap();
+    (0, _react.useEffect)(function addMapEventHandlers() {
+        map.on(handlers);
+        return function removeMapEventHandlers() {
+            map.off(handlers);
+        };
+    }, [
+        map,
+        handlers
+    ]);
+    return map;
+}
 
-},{"@react-leaflet/core":"ckhU0","leaflet":"iFbO2","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ckhU0":[function(require,module,exports) {
+},{"@react-leaflet/core":"ckhU0","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ckhU0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "useAttribution", ()=>(0, _attributionJs.useAttribution));
@@ -29478,7 +29477,60 @@ function updateGridLayer(layer, props, prevProps) {
     if (zIndex != null && zIndex !== prevProps.zIndex) layer.setZIndex(zIndex);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iFbO2":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iT5ir":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MapContainer", ()=>MapContainer);
+var _core = require("@react-leaflet/core");
+var _leaflet = require("leaflet");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+function _extends() {
+    _extends = Object.assign || function(target) {
+        for(var i = 1; i < arguments.length; i++){
+            var source = arguments[i];
+            for(var key in source)if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
+        }
+        return target;
+    };
+    return _extends.apply(this, arguments);
+}
+function MapContainerComponent({ bounds , boundsOptions , center , children , className , id , placeholder , style , whenReady , zoom , ...options }, forwardedRef) {
+    const [props] = (0, _react.useState)({
+        className,
+        id,
+        style
+    });
+    const [context, setContext] = (0, _react.useState)(null);
+    (0, _react.useImperativeHandle)(forwardedRef, ()=>context?.map ?? null, [
+        context
+    ]);
+    const mapRef = (0, _react.useCallback)((node)=>{
+        if (node !== null && context === null) {
+            const map = new (0, _leaflet.Map)(node, options);
+            if (center != null && zoom != null) map.setView(center, zoom);
+            else if (bounds != null) map.fitBounds(bounds, boundsOptions);
+            if (whenReady != null) map.whenReady(whenReady);
+            setContext((0, _core.createLeafletContext)(map));
+        }
+    }, []);
+    (0, _react.useEffect)(()=>{
+        return ()=>{
+            context?.map.remove();
+        };
+    }, [
+        context
+    ]);
+    const contents = context ? /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _core.LeafletProvider), {
+        value: context
+    }, children) : placeholder ?? null;
+    return /*#__PURE__*/ (0, _reactDefault.default).createElement("div", _extends({}, props, {
+        ref: mapRef
+    }), contents);
+}
+const MapContainer = /*#__PURE__*/ (0, _react.forwardRef)(MapContainerComponent);
+
+},{"@react-leaflet/core":"ckhU0","leaflet":"iFbO2","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iFbO2":[function(require,module,exports) {
 /* @preserve
  * Leaflet 1.8.0, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2022 Vladimir Agafonkin, (c) 2010-2011 CloudMade
