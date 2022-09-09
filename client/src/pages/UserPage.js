@@ -5,7 +5,7 @@ import { getUserInfo, getTrips } from '../fetcher.js';
 import Map from '../components/Map'
 
 export default function UserPage() {
-    const [userInfo, setUserInfo] = useState({username: "Mike", bio: "I'm Mike", profile_pic: "Photo"});
+    const [userInfo, setUserInfo] = useState({});
     const [markers, setMarkers] = useState([]);
 
     /*
@@ -15,12 +15,19 @@ export default function UserPage() {
     *
     *  Add trip button -> add trip sidebar or page
     */
+    useEffect(() => {
+        getUserInfo("Mike").then(res => {
+            setUserInfo(res.results[0]);
+        })
+    }, []);
 
     useEffect(() => {
-        getTrips(userInfo.username).then(res => {
+        getTrips("Mike").then(res => {
             res.results.map((i) => {
                 i.position = [i.latitude, i.longitude];
-                i.content = <> {i.photo} <br /> <b> {i.city} </b> <br /> {i.start_date} - {i.end_date} <br /> {i.review} </>;
+                i.start_date = i.start_date.slice(0, 10);
+                i.end_date = i.end_date.slice(0,10);
+                i.content = <> {i.photo} <br /> <b> {i.city_name} </b> <br /> {i.start_date} - {i.end_date} <br /> {i.review} </>;
             });
             setMarkers(res.results.map((i) => {return {position: i.position, content: i.content}}));
         })

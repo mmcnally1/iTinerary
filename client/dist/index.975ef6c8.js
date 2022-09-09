@@ -40544,11 +40544,7 @@ var _mapDefault = parcelHelpers.interopDefault(_map);
 var _s = $RefreshSig$();
 function UserPage() {
     _s();
-    const [userInfo, setUserInfo] = (0, _react.useState)({
-        username: "Mike",
-        bio: "I'm Mike",
-        profile_pic: "Photo"
-    });
+    const [userInfo, setUserInfo] = (0, _react.useState)({});
     const [markers, setMarkers] = (0, _react.useState)([]);
     /*
     *  Query for user's info and trips
@@ -40557,12 +40553,19 @@ function UserPage() {
     *
     *  Add trip button -> add trip sidebar or page
     */ (0, _react.useEffect)(()=>{
-        (0, _fetcherJs.getTrips)(userInfo.username).then((res)=>{
+        (0, _fetcherJs.getUserInfo)("Mike").then((res)=>{
+            setUserInfo(res.results[0]);
+        });
+    }, []);
+    (0, _react.useEffect)(()=>{
+        (0, _fetcherJs.getTrips)("Mike").then((res)=>{
             res.results.map((i)=>{
                 i.position = [
                     i.latitude,
                     i.longitude
                 ];
+                i.start_date = i.start_date.slice(0, 10);
+                i.end_date = i.end_date.slice(0, 10);
                 i.content = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                     children: [
                         " ",
@@ -40570,26 +40573,26 @@ function UserPage() {
                         " ",
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                             fileName: "src/pages/UserPage.js",
-                            lineNumber: 23,
+                            lineNumber: 30,
                             columnNumber: 42
                         }, this),
                         " ",
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
                             children: [
                                 " ",
-                                i.city,
+                                i.city_name,
                                 " "
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/UserPage.js",
-                            lineNumber: 23,
+                            lineNumber: 30,
                             columnNumber: 49
                         }, this),
                         " ",
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                             fileName: "src/pages/UserPage.js",
-                            lineNumber: 23,
-                            columnNumber: 67
+                            lineNumber: 30,
+                            columnNumber: 72
                         }, this),
                         " ",
                         i.start_date,
@@ -40598,8 +40601,8 @@ function UserPage() {
                         " ",
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                             fileName: "src/pages/UserPage.js",
-                            lineNumber: 23,
-                            columnNumber: 104
+                            lineNumber: 30,
+                            columnNumber: 109
                         }, this),
                         " ",
                         i.review,
@@ -40626,12 +40629,12 @@ function UserPage() {
                     ]
                 }, void 0, true, {
                     fileName: "src/pages/UserPage.js",
-                    lineNumber: 32,
+                    lineNumber: 39,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "src/pages/UserPage.js",
-                lineNumber: 31,
+                lineNumber: 38,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -40644,19 +40647,19 @@ function UserPage() {
                     markers: markers
                 }, void 0, false, {
                     fileName: "src/pages/UserPage.js",
-                    lineNumber: 35,
+                    lineNumber: 42,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "src/pages/UserPage.js",
-                lineNumber: 34,
+                lineNumber: 41,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true);
 }
 exports.default = UserPage;
-_s(UserPage, "AcyLT0iESGghe90J9x2fz2IEfsE=");
+_s(UserPage, "PoZqJGMQE+RzW1nDXll4buGlvBI=");
 _c = UserPage;
 var _c;
 $RefreshReg$(_c, "UserPage");
