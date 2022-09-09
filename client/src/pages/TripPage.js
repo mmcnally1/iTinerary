@@ -1,3 +1,7 @@
+import Map from '../components/Map'
+
 export default function TripPage() {
-  return <h1>TripPage</h1>
+    return (
+        <h1>Trip Page</h1>
+    )
 }

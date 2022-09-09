@@ -40,13 +40,14 @@ async function getFriends(req, res) {
 }
 
 async function getTrips(req, res) {
+    console.log(req.params.username);
     res.json({
         results: [
             {
                 photo: "Portland Photo",
                 city: "Portland",
                 latitude: 43.6591,
-                longitude: 70.2568,
+                longitude: -70.2568,
                 review: "Went to Portland",
                 start_date: "2022-08-18",
                 end_date: "2022-08-26"
@@ -55,7 +56,7 @@ async function getTrips(req, res) {
                 photo: "New Orleans Photo",
                 city: "New Orleans",
                 latitude: 29.9511,
-                longitude: 90.0715,
+                longitude: -90.0715,
                 review: "Went to New Orleans",
                 start_date: "2022-03-09",
                 end_date: "2022-03-13"
@@ -64,7 +65,7 @@ async function getTrips(req, res) {
                 photo: "Austin Photo",
                 city: "Austin",
                 latitude: 30.2672,
-                longitude: 97.7431,
+                longitude: -97.7431,
                 review: "Went to Austin",
                 start_date: "2022-03-06",
                 end_date: "2022-03-09"

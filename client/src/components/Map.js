@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 /**
  * @param center object with lat, lon array {[0, 0]}
  * @param zoom object with integer zoom level 0-13
- * @param marker array of postion, content objects [{position: [0, 0] content: text or jsx}]
+ * @param markers array of postion, content objects [{position: [0, 0] content: text or jsx}]
  *
  * */
 export default function Map({ center, zoom, markers }) {

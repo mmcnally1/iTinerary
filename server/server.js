@@ -7,7 +7,7 @@ const config = require('./config.json');
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));
+app.use(cors({ credentials: true, origin: ['http://localhost:1234'] }));
 
 // Route 1: Get User's profile pic/bio
 app.get('/userInfo/:username', routes.getUserInfo);
