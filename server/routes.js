@@ -1,20 +1,33 @@
 const config = require("./config.json");
-//const mysql = require("mysql");
+const mysql = require("mysql");
 const express = require("express");
+var qs = require("querystring");
 
-// create connection
-
+const connection = mysql.createConnection({
+    host: config.rds_host,
+    user: config.rds_user,
+    password: config.rds_password,
+    port: config.rds_port,
+    database: config.rds_db,
+});
+connection.connect();
 
 async function getUserInfo(req, res) {
-    res.json({
-        results: [
-            {
-                username: "Mike",
-                bio: "I'm Mike",
-                profile_pic: "reference to profile pic"
+    const username = req.params.username;
+    connection.query(
+        `
+        SELECT username, profile_pic, about
+        FROM User
+        WHERE username = '${username}'`,
+        function (error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
             }
-        ]
-    })
+        }
+    );
 }
 
 async function getFriends(req, res) {
@@ -40,38 +53,22 @@ async function getFriends(req, res) {
 }
 
 async function getTrips(req, res) {
-    console.log(req.params.username);
-    res.json({
-        results: [
-            {
-                photo: "Portland Photo",
-                city: "Portland",
-                latitude: 43.6591,
-                longitude: -70.2568,
-                review: "Went to Portland",
-                start_date: "2022-08-18",
-                end_date: "2022-08-26"
-            },
-            {
-                photo: "New Orleans Photo",
-                city: "New Orleans",
-                latitude: 29.9511,
-                longitude: -90.0715,
-                review: "Went to New Orleans",
-                start_date: "2022-03-09",
-                end_date: "2022-03-13"
-            },
-            {
-                photo: "Austin Photo",
-                city: "Austin",
-                latitude: 30.2672,
-                longitude: -97.7431,
-                review: "Went to Austin",
-                start_date: "2022-03-06",
-                end_date: "2022-03-09"
+    const username = req.params.username;
+    connection.query(
+        `
+        SELECT city_name, latitude, longitude, photo, start_date, end_date
+        FROM City
+        WHERE username = '${username}'
+        `,
+        function (error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
             }
-        ]
-    })
+        }
+    );
 }
 
 async function getPlaces(req, res) {
@@ -95,9 +92,34 @@ async function getPlaces(req, res) {
     })
 }
 
+async function addTrip(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            INSERT INTO City
+            VALUES ('${data.username}', '${data.city}', '${data.photo}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+            `,
+            function (error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.json({ error: error });
+                } else {
+                    res.status(200).json("Trip Added!");
+                }
+            }
+        );
+    });
+}
+
 module.exports = {
     getUserInfo,
     getFriends,
     getTrips,
     getPlaces,
+    addTrip
 };

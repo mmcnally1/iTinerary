@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@20tab/react-leaflet-resetview": "^1.1.0",
+    "antd": "^4.16.13",
     "leaflet": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
