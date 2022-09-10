@@ -37,4 +37,13 @@ h1, h2, h3 {
   aspect-ratio: 16 / 9;
 }
 
+.card {
+  max-width: 100%;
+  background: #f3f3f3;
+  border: 1px solid #dcdcdc;
+  border-radius: 20px;
+  margin: 10px 0;
+  padding-inline: 10px;
+}
+
 /*# sourceMappingURL=index.b34c8453.css.map */

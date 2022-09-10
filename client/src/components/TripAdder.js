@@ -1,15 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
+import * as opencage from 'opencage-api-client';
 
 import { postTrip } from '../fetcher.js';
 
 export default function TripAdder(props) {
     const onFinish = (values) => {
         values.username = props.username;
-        console.log(values);
-        console.log(JSON.stringify(values));
-        postTrip(values);
-        props.displayMarkers();
+
+        opencage
+            .geocode(
+                {
+                    key: 'c46c23c2c22b48bf8f0b6baf4742877f',
+                    limit: 1,
+                    q: values.city
+                }
+            )
+            .then(response => {
+                console.log(response);
+                values.lat = response.results[0].geometry.lat;
+                values.long = response.results[0].geometry.lng;
+                postTrip(values);
+                props.displayMarkers();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     return (
@@ -31,25 +47,13 @@ export default function TripAdder(props) {
             <Input />
             </Form.Item>
             <Form.Item
-                label="Latitude"
-                name="lat"
-            >
-            <Input />
-            </Form.Item>
-            <Form.Item
-                label="Longitude"
-                name="long"
-            >
-            <Input />
-            </Form.Item>
-            <Form.Item
-                label="Date Visited"
+                label="Trip Start Date (yyyy-mm-dd)"
                 name="start_date"
             >
             <Input />
             </Form.Item>
             <Form.Item
-                label="Date Left"
+                label="Trip End Date (yyyy-mm-dd)"
                 name="end_date"
             >
             <Input />
