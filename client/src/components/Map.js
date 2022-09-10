@@ -33,7 +33,7 @@ function Markers({ markers, clickFn }) {
       </Marker>))
 }
 
-export default function Map({ markers, clickFn }) {
+export default function Map({ markers, clickFn, children }) {
   const [leafletMap, setLeafletMap] = useState(null);
   const center = [0, 0]
   const zoom = 1
@@ -51,5 +51,6 @@ export default function Map({ markers, clickFn }) {
       icon="&#x21ba"
     />
     <Markers markers={markers} clickFn={clickFn} />
+    {children}
   </MapContainer>)
 }

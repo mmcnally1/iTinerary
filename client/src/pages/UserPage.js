@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { getUserInfo, getTrips } from '../fetcher.js';
 import TripAdder from '../components/TripAdder.js';
+import PlaceAdder, { LocationMarkers } from '../components/PlaceAdder.js';
 
 import Map from '../components/Map'
 
@@ -69,13 +70,15 @@ export default function UserPage() {
                     navigate('/');
                 }}
                 >Logout</button>
-            <Map markers={markers} clickFn={setActiveLocation} />
+            <Map markers={markers} clickFn={setActiveLocation} children={LocationMarkers}/>
             {(activeLocation == null)
                 ? <h3>Select a destination from the map.</h3>
                 : <TripSummary info={activeLocation} />}
             <div>
                 <h2>Add a Trip</h2>
                 <TripAdder {...tripProps} />
+                <br />
+                <PlaceAdder {...tripProps} />
             </div>
 
         </>

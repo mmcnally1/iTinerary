@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <>
       <h1>iTinerary</h1>
-      <Map center={[0, 0]} zoom={1} markers={markers} />
+      <Map markers={markers} />
       <div>
         <h1> Login </h1>
         <LoginForm />
