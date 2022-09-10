@@ -2,6 +2,7 @@ const config = require("./config.json");
 const mysql = require("mysql");
 const express = require("express");
 var qs = require("querystring");
+var opencage = require("opencage-api-client")
 
 const connection = mysql.createConnection({
     host: config.rds_host,
@@ -99,20 +100,35 @@ async function addTrip(req, res) {
     });
     req.on('end', () => {
         var data = JSON.parse(body);
-        connection.query(
-            `
-            INSERT INTO City
-            VALUES ('${data.username}', '${data.city}', '${data.photo}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
-            `,
-            function (error, results, fields) {
-                if (error) {
-                    console.log(error);
-                    res.json({ error: error });
-                } else {
-                    res.status(200).json("Trip Added!");
+        opencage
+            .geocode(
+                {
+                    key: process.env.REACT_APP_GEOCODING_API_KEY,
+                    limit: 1,
+                    q: data.city
                 }
-            }
-        );
+            )
+            .then(response => {
+                data.lat = response.results[0].geometry.lat;
+                data.long = response.results[0].geometry.lng;
+                connection.query(
+                    `
+                    INSERT INTO City
+                    VALUES ('${data.username}', '${data.city}', '${data.photo}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+                    `,
+                    function (error, results, fields) {
+                        if (error) {
+                            console.log(error);
+                            res.json({ error: error });
+                        } else {
+                            res.status(200).json("Trip Added!");
+                        }
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+            });
     });
 }
 

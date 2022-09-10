@@ -40890,23 +40890,12 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _antd = require("antd");
-var _opencageApiClient = require("opencage-api-client");
 var _fetcherJs = require("../fetcher.js");
 function TripAdder(props) {
     const onFinish = (values)=>{
         values.username = props.username;
-        _opencageApiClient.geocode({
-            key: "c46c23c2c22b48bf8f0b6baf4742877f",
-            limit: 1,
-            q: values.city
-        }).then((response)=>{
-            console.log(response);
-            values.lat = response.results[0].geometry.lat;
-            values.long = response.results[0].geometry.lng;
-            (0, _fetcherJs.postTrip)(values);
+        (0, _fetcherJs.postTrip)(values).then(()=>{
             props.displayMarkers();
-        }).catch((err)=>{
-            console.log(err);
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form), {
@@ -40919,12 +40908,12 @@ function TripAdder(props) {
                 name: "city",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
                     fileName: "src/components/TripAdder.js",
-                    lineNumber: 41,
+                    lineNumber: 25,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/TripAdder.js",
-                lineNumber: 37,
+                lineNumber: 21,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
@@ -40932,12 +40921,12 @@ function TripAdder(props) {
                 name: "photo",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
                     fileName: "src/components/TripAdder.js",
-                    lineNumber: 47,
+                    lineNumber: 31,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/TripAdder.js",
-                lineNumber: 43,
+                lineNumber: 27,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
@@ -40945,12 +40934,12 @@ function TripAdder(props) {
                 name: "start_date",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
                     fileName: "src/components/TripAdder.js",
-                    lineNumber: 53,
+                    lineNumber: 37,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/TripAdder.js",
-                lineNumber: 49,
+                lineNumber: 33,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
@@ -40958,12 +40947,12 @@ function TripAdder(props) {
                 name: "end_date",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
                     fileName: "src/components/TripAdder.js",
-                    lineNumber: 59,
+                    lineNumber: 43,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/TripAdder.js",
-                lineNumber: 55,
+                lineNumber: 39,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
@@ -40972,18 +40961,18 @@ function TripAdder(props) {
                     children: "Add Trip"
                 }, void 0, false, {
                     fileName: "src/components/TripAdder.js",
-                    lineNumber: 62,
+                    lineNumber: 46,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/TripAdder.js",
-                lineNumber: 61,
+                lineNumber: 45,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/TripAdder.js",
-        lineNumber: 32,
+        lineNumber: 16,
         columnNumber: 9
     }, this);
 }
@@ -40997,7 +40986,7 @@ $RefreshReg$(_c, "TripAdder");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","antd":"6C7kW","../fetcher.js":"aPEFQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","opencage-api-client":"6oW2Y"}],"6C7kW":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","antd":"6C7kW","../fetcher.js":"aPEFQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6C7kW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "theme", ()=>theme);
@@ -60906,348 +60895,6 @@ var ClearableLabeledInput = /*#__PURE__*/ function(_React$Component) {
 }(_react.Component);
 exports.default = ClearableLabeledInput;
 
-},{"@babel/runtime/helpers/esm/defineProperty":"hbmCA","@babel/runtime/helpers/esm/classCallCheck":"aNx1x","@babel/runtime/helpers/esm/createClass":"kZyth","@babel/runtime/helpers/esm/inherits":"drFw3","@babel/runtime/helpers/esm/createSuper":"hp3mc","@ant-design/icons/es/icons/CloseCircleFilled":"hNhJu","classnames":"jocGM","react":"21dqq","../form/context":"flRlt","../_util/reactNode":"d1mV0","../_util/statusUtils":"gRi8E","../_util/type":"eWuNf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6oW2Y":[function(require,module,exports) {
-!function(t, e) {
-    module.exports = e();
-}(self, function() {
-    var t, e;
-    return t = {
-        98: function(t, e) {
-            var r = function(t) {
-                function e() {
-                    this.fetch = !1, this.DOMException = t.DOMException;
-                }
-                return e.prototype = t, new e;
-            }("undefined" != typeof self ? self : this);
-            !function(t) {
-                !function(e) {
-                    var r = "URLSearchParams" in t, o = "Symbol" in t && "iterator" in Symbol, n = "FileReader" in t && "Blob" in t && function() {
-                        try {
-                            return new Blob, !0;
-                        } catch (t) {
-                            return !1;
-                        }
-                    }(), s = "FormData" in t, i = "ArrayBuffer" in t;
-                    if (i) var a = [
-                        "[object Int8Array]",
-                        "[object Uint8Array]",
-                        "[object Uint8ClampedArray]",
-                        "[object Int16Array]",
-                        "[object Uint16Array]",
-                        "[object Int32Array]",
-                        "[object Uint32Array]",
-                        "[object Float32Array]",
-                        "[object Float64Array]"
-                    ], u = ArrayBuffer.isView || function(t) {
-                        return t && a.indexOf(Object.prototype.toString.call(t)) > -1;
-                    };
-                    function h(t) {
-                        if ("string" != typeof t && (t = String(t)), /[^a-z0-9\-#$%&'*+.^_`|~]/i.test(t)) throw new TypeError("Invalid character in header field name");
-                        return t.toLowerCase();
-                    }
-                    function p(t) {
-                        return "string" != typeof t && (t = String(t)), t;
-                    }
-                    function c(t) {
-                        var e = {
-                            next: function() {
-                                var e = t.shift();
-                                return {
-                                    done: void 0 === e,
-                                    value: e
-                                };
-                            }
-                        };
-                        return o && (e[Symbol.iterator] = function() {
-                            return e;
-                        }), e;
-                    }
-                    function f(t) {
-                        this.map = {}, t instanceof f ? t.forEach(function(t, e) {
-                            this.append(e, t);
-                        }, this) : Array.isArray(t) ? t.forEach(function(t) {
-                            this.append(t[0], t[1]);
-                        }, this) : t && Object.getOwnPropertyNames(t).forEach(function(e) {
-                            this.append(e, t[e]);
-                        }, this);
-                    }
-                    function d(t) {
-                        if (t.bodyUsed) return Promise.reject(new TypeError("Already read"));
-                        t.bodyUsed = !0;
-                    }
-                    function y(t) {
-                        return new Promise(function(e, r) {
-                            t.onload = function() {
-                                e(t.result);
-                            }, t.onerror = function() {
-                                r(t.error);
-                            };
-                        });
-                    }
-                    function l(t) {
-                        var e = new FileReader, r = y(e);
-                        return e.readAsArrayBuffer(t), r;
-                    }
-                    function b(t) {
-                        if (t.slice) return t.slice(0);
-                        var e = new Uint8Array(t.byteLength);
-                        return e.set(new Uint8Array(t)), e.buffer;
-                    }
-                    function m() {
-                        return this.bodyUsed = !1, this._initBody = function(t) {
-                            var e;
-                            this._bodyInit = t, t ? "string" == typeof t ? this._bodyText = t : n && Blob.prototype.isPrototypeOf(t) ? this._bodyBlob = t : s && FormData.prototype.isPrototypeOf(t) ? this._bodyFormData = t : r && URLSearchParams.prototype.isPrototypeOf(t) ? this._bodyText = t.toString() : i && n && (e = t) && DataView.prototype.isPrototypeOf(e) ? (this._bodyArrayBuffer = b(t.buffer), this._bodyInit = new Blob([
-                                this._bodyArrayBuffer
-                            ])) : i && (ArrayBuffer.prototype.isPrototypeOf(t) || u(t)) ? this._bodyArrayBuffer = b(t) : this._bodyText = t = Object.prototype.toString.call(t) : this._bodyText = "", this.headers.get("content-type") || ("string" == typeof t ? this.headers.set("content-type", "text/plain;charset=UTF-8") : this._bodyBlob && this._bodyBlob.type ? this.headers.set("content-type", this._bodyBlob.type) : r && URLSearchParams.prototype.isPrototypeOf(t) && this.headers.set("content-type", "application/x-www-form-urlencoded;charset=UTF-8"));
-                        }, n && (this.blob = function() {
-                            var t = d(this);
-                            if (t) return t;
-                            if (this._bodyBlob) return Promise.resolve(this._bodyBlob);
-                            if (this._bodyArrayBuffer) return Promise.resolve(new Blob([
-                                this._bodyArrayBuffer
-                            ]));
-                            if (this._bodyFormData) throw new Error("could not read FormData body as blob");
-                            return Promise.resolve(new Blob([
-                                this._bodyText
-                            ]));
-                        }, this.arrayBuffer = function() {
-                            return this._bodyArrayBuffer ? d(this) || Promise.resolve(this._bodyArrayBuffer) : this.blob().then(l);
-                        }), this.text = function() {
-                            var t, e, r, o = d(this);
-                            if (o) return o;
-                            if (this._bodyBlob) return t = this._bodyBlob, r = y(e = new FileReader), e.readAsText(t), r;
-                            if (this._bodyArrayBuffer) return Promise.resolve(function(t) {
-                                for(var e = new Uint8Array(t), r = new Array(e.length), o = 0; o < e.length; o++)r[o] = String.fromCharCode(e[o]);
-                                return r.join("");
-                            }(this._bodyArrayBuffer));
-                            if (this._bodyFormData) throw new Error("could not read FormData body as text");
-                            return Promise.resolve(this._bodyText);
-                        }, s && (this.formData = function() {
-                            return this.text().then(E);
-                        }), this.json = function() {
-                            return this.text().then(JSON.parse);
-                        }, this;
-                    }
-                    f.prototype.append = function(t, e) {
-                        t = h(t), e = p(e);
-                        var r = this.map[t];
-                        this.map[t] = r ? r + ", " + e : e;
-                    }, f.prototype.delete = function(t) {
-                        delete this.map[h(t)];
-                    }, f.prototype.get = function(t) {
-                        return t = h(t), this.has(t) ? this.map[t] : null;
-                    }, f.prototype.has = function(t) {
-                        return this.map.hasOwnProperty(h(t));
-                    }, f.prototype.set = function(t, e) {
-                        this.map[h(t)] = p(e);
-                    }, f.prototype.forEach = function(t, e) {
-                        for(var r in this.map)this.map.hasOwnProperty(r) && t.call(e, this.map[r], r, this);
-                    }, f.prototype.keys = function() {
-                        var t = [];
-                        return this.forEach(function(e, r) {
-                            t.push(r);
-                        }), c(t);
-                    }, f.prototype.values = function() {
-                        var t = [];
-                        return this.forEach(function(e) {
-                            t.push(e);
-                        }), c(t);
-                    }, f.prototype.entries = function() {
-                        var t = [];
-                        return this.forEach(function(e, r) {
-                            t.push([
-                                r,
-                                e
-                            ]);
-                        }), c(t);
-                    }, o && (f.prototype[Symbol.iterator] = f.prototype.entries);
-                    var w = [
-                        "DELETE",
-                        "GET",
-                        "HEAD",
-                        "OPTIONS",
-                        "POST",
-                        "PUT"
-                    ];
-                    function x(t, e) {
-                        var r, o, n = (e = e || {}).body;
-                        if (t instanceof x) {
-                            if (t.bodyUsed) throw new TypeError("Already read");
-                            this.url = t.url, this.credentials = t.credentials, e.headers || (this.headers = new f(t.headers)), this.method = t.method, this.mode = t.mode, this.signal = t.signal, n || null == t._bodyInit || (n = t._bodyInit, t.bodyUsed = !0);
-                        } else this.url = String(t);
-                        if (this.credentials = e.credentials || this.credentials || "same-origin", !e.headers && this.headers || (this.headers = new f(e.headers)), this.method = (o = (r = e.method || this.method || "GET").toUpperCase(), w.indexOf(o) > -1 ? o : r), this.mode = e.mode || this.mode || null, this.signal = e.signal || this.signal, this.referrer = null, ("GET" === this.method || "HEAD" === this.method) && n) throw new TypeError("Body not allowed for GET or HEAD requests");
-                        this._initBody(n);
-                    }
-                    function E(t) {
-                        var e = new FormData;
-                        return t.trim().split("&").forEach(function(t) {
-                            if (t) {
-                                var r = t.split("="), o = r.shift().replace(/\+/g, " "), n = r.join("=").replace(/\+/g, " ");
-                                e.append(decodeURIComponent(o), decodeURIComponent(n));
-                            }
-                        }), e;
-                    }
-                    function v(t, e) {
-                        e || (e = {}), this.type = "default", this.status = void 0 === e.status ? 200 : e.status, this.ok = this.status >= 200 && this.status < 300, this.statusText = "statusText" in e ? e.statusText : "OK", this.headers = new f(e.headers), this.url = e.url || "", this._initBody(t);
-                    }
-                    x.prototype.clone = function() {
-                        return new x(this, {
-                            body: this._bodyInit
-                        });
-                    }, m.call(x.prototype), m.call(v.prototype), v.prototype.clone = function() {
-                        return new v(this._bodyInit, {
-                            status: this.status,
-                            statusText: this.statusText,
-                            headers: new f(this.headers),
-                            url: this.url
-                        });
-                    }, v.error = function() {
-                        var t = new v(null, {
-                            status: 0,
-                            statusText: ""
-                        });
-                        return t.type = "error", t;
-                    };
-                    var g = [
-                        301,
-                        302,
-                        303,
-                        307,
-                        308
-                    ];
-                    v.redirect = function(t, e) {
-                        if (-1 === g.indexOf(e)) throw new RangeError("Invalid status code");
-                        return new v(null, {
-                            status: e,
-                            headers: {
-                                location: t
-                            }
-                        });
-                    }, e.DOMException = t.DOMException;
-                    try {
-                        new e.DOMException;
-                    } catch (t1) {
-                        e.DOMException = function(t, e) {
-                            this.message = t, this.name = e;
-                            var r = Error(t);
-                            this.stack = r.stack;
-                        }, e.DOMException.prototype = Object.create(Error.prototype), e.DOMException.prototype.constructor = e.DOMException;
-                    }
-                    function A(t, r) {
-                        return new Promise(function(o, s) {
-                            var i = new x(t, r);
-                            if (i.signal && i.signal.aborted) return s(new e.DOMException("Aborted", "AbortError"));
-                            var a = new XMLHttpRequest;
-                            function u() {
-                                a.abort();
-                            }
-                            a.onload = function() {
-                                var t, e, r = {
-                                    status: a.status,
-                                    statusText: a.statusText,
-                                    headers: (t = a.getAllResponseHeaders() || "", e = new f, t.replace(/\r?\n[\t ]+/g, " ").split(/\r?\n/).forEach(function(t) {
-                                        var r = t.split(":"), o = r.shift().trim();
-                                        if (o) {
-                                            var n = r.join(":").trim();
-                                            e.append(o, n);
-                                        }
-                                    }), e)
-                                };
-                                r.url = "responseURL" in a ? a.responseURL : r.headers.get("X-Request-URL");
-                                var n = "response" in a ? a.response : a.responseText;
-                                o(new v(n, r));
-                            }, a.onerror = function() {
-                                s(new TypeError("Network request failed"));
-                            }, a.ontimeout = function() {
-                                s(new TypeError("Network request failed"));
-                            }, a.onabort = function() {
-                                s(new e.DOMException("Aborted", "AbortError"));
-                            }, a.open(i.method, i.url, !0), "include" === i.credentials ? a.withCredentials = !0 : "omit" === i.credentials && (a.withCredentials = !1), "responseType" in a && n && (a.responseType = "blob"), i.headers.forEach(function(t, e) {
-                                a.setRequestHeader(e, t);
-                            }), i.signal && (i.signal.addEventListener("abort", u), a.onreadystatechange = function() {
-                                4 === a.readyState && i.signal.removeEventListener("abort", u);
-                            }), a.send(void 0 === i._bodyInit ? null : i._bodyInit);
-                        });
-                    }
-                    A.polyfill = !0, t.fetch || (t.fetch = A, t.Headers = f, t.Request = x, t.Response = v), e.Headers = f, e.Request = x, e.Response = v, e.fetch = A;
-                }({});
-            }(r), delete r.fetch.polyfill, (e = r.fetch).default = r.fetch, e.fetch = r.fetch, e.Headers = r.Headers, e.Request = r.Request, e.Response = r.Response, t.exports = e;
-        },
-        171: (t)=>{
-            t.exports = (t, e)=>{
-                const r = new Error(e), o = {
-                    code: t,
-                    message: e
-                };
-                return r.response = {
-                    status: o
-                }, r;
-            };
-        },
-        526: (t, e, r)=>{
-            const o = r(98), n = (t)=>{
-                if (t.status >= 200 && t.status < 300) return t;
-                const e = new Error(t.statusText);
-                throw e.status = {
-                    code: t.status,
-                    message: t.statusText
-                }, e;
-            }, s = (t)=>t.json(), i = (t)=>o(t);
-            t.exports = (t, e, r)=>{
-                i(t).then(n).then(s).then((t)=>{
-                    e(t);
-                }).catch((t)=>{
-                    r(t);
-                });
-            }, t.exports.fetchUrl = i, t.exports.parseJSON = s, t.exports.checkStatus = n;
-        },
-        616: (t, e, r)=>{
-            const o = r(225), n = r(231), s = r(526), i = r(171);
-            t.exports = (t)=>new Promise((e, r)=>{
-                    if (o.isUndefinedOrNull(t)) return r(i(400, "missing or bad query"));
-                    const a = ((t)=>{
-                        const e = {
-                            ...t
-                        };
-                        let r = "https://api.opencagedata.com/geocode/v1/json", n = !1;
-                        return o.isUndefinedOrEmpty(t.proxyURL) ? (o.isUndefinedOrEmpty(t.key) && (e.key = undefined), o.isUndefinedOrEmpty(e.key) && (n = !0)) : (r = t.proxyURL, delete e.proxyURL), {
-                            missingKey: n,
-                            endpoint: r,
-                            query: e
-                        };
-                    })(t);
-                    if (a.missingKey) return r(i(401, "missing API key"));
-                    const { query: u , endpoint: h  } = a, p = n(u);
-                    return s(`${h}?${p}`, e, r);
-                });
-        },
-        225: (t)=>{
-            t.exports = {
-                isNumber: (t)=>"number" == typeof t && !Number.isNaN(t),
-                isArray: (t)=>!!t && Array.isArray(t),
-                isUndefinedOrEmpty: (t)=>void 0 === t || "" === t,
-                isUndefinedOrNull: (t)=>null == t
-            };
-        },
-        138: (t, e, r)=>{
-            const o = r(616);
-            t.exports = {
-                geocode: o
-            };
-        },
-        231: (t, e, r)=>{
-            const o = r(225);
-            t.exports = (t)=>o.isUndefinedOrNull(t) ? "" : Object.keys(t).map((e)=>`${encodeURIComponent(e)}=${encodeURIComponent(t[e])}`).join("&");
-        }
-    }, e = {}, function r(o) {
-        if (e[o]) return e[o].exports;
-        var n = e[o] = {
-            exports: {}
-        };
-        return t[o].call(n.exports, n, n.exports, r), n.exports;
-    }(138);
-});
-
-},{}]},["1xC6H","ShInH","8lqZg"], "8lqZg", "parcelRequire10b0")
+},{"@babel/runtime/helpers/esm/defineProperty":"hbmCA","@babel/runtime/helpers/esm/classCallCheck":"aNx1x","@babel/runtime/helpers/esm/createClass":"kZyth","@babel/runtime/helpers/esm/inherits":"drFw3","@babel/runtime/helpers/esm/createSuper":"hp3mc","@ant-design/icons/es/icons/CloseCircleFilled":"hNhJu","classnames":"jocGM","react":"21dqq","../form/context":"flRlt","../_util/reactNode":"d1mV0","../_util/statusUtils":"gRi8E","../_util/type":"eWuNf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1xC6H","ShInH","8lqZg"], "8lqZg", "parcelRequire10b0")
 
 //# sourceMappingURL=index.975ef6c8.js.map
