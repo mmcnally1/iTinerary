@@ -1,38 +1,55 @@
-import React, { useEffect } from "react"
-import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet'
+import { useState } from "react"
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import ResetViewControl from '@20tab/react-leaflet-resetview';
+
 /**
  * @param center object with lat, lon array {[0, 0]}
  * @param zoom object with integer zoom level 0-13
  * @param markers array of postion, content objects [{position: [0, 0] content: text or jsx}]
  *
  * */
-export default function Map({ center, zoom, markers }) {
-  const content = markers.map((item, idx) =>
-    <Marker position={item.position}
-            key={idx}
-            eventHandlers={{
-                mouseover: (e) => {
-                    e.target.openPopup();
-                },
-                mouseout: (e) => {
-                    e.target.closePopup();
-                },
-                click: (e) => {
-                    console.log("marker clicked");
-                }
+
+function Markers({ markers, clickFn }) {
+  const leafletMap = useMap();
+  return (
+    markers.map((item, idx) =>
+      <Marker position={item.position}
+        key={idx}
+        eventHandlers={{
+          mouseover: (e) => {
+            e.target.openPopup();
+          },
+          mouseout: (e) => {
+            e.target.closePopup();
+          },
+          click: (e) => {
+            clickFn(item.data);
+            leafletMap.setView(item.position, 13);
+          }
         }}>
-      <Popup>
-        {item.content}
-      </Popup>
-    </Marker>)
+        <Popup>
+          {item.content}
+        </Popup>
+      </Marker>))
+}
+
+export default function Map({ markers, clickFn }) {
+  const [leafletMap, setLeafletMap] = useState(null);
+  const center = [0, 0]
+  const zoom = 1
 
   return (<MapContainer
     center={center}
     zoom={zoom}
-    scrollWheelZoom={false}>
+    scrollWheelZoom={false}
+    whenCreated={setLeafletMap}>
     <TileLayer
       attribution='&copy; <a href="https:www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https:{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-    {content}
+    <ResetViewControl
+      title="Reset view"
+      icon="&#x21ba"
+    />
+    <Markers markers={markers} clickFn={clickFn} />
   </MapContainer>)
 }

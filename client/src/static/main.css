@@ -17,3 +17,12 @@ h1,h2,h3{line-height:1.2}
   width: 100%;
   aspect-ratio: 16/9;
 }
+
+.card {
+  max-width: 100%;
+  margin: 10px 0px;
+  padding-inline: 10px;
+  border: 1px solid gainsboro;
+  border-radius: 20px;
+  background: #f3f3f3;
+}
