@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { getUserInfo, getTrips } from '../fetcher.js';
+import TripAdder from '../components/TripAdder.js';
 
 import Map from '../components/Map'
 
@@ -21,7 +22,7 @@ export default function UserPage() {
         })
     }, []);
 
-    useEffect(() => {
+    const displayMarkers = () => {
         getTrips("Mike").then(res => {
             res.results.map((i) => {
                 i.position = [i.latitude, i.longitude];
@@ -29,9 +30,18 @@ export default function UserPage() {
                 i.end_date = i.end_date.slice(0,10);
                 i.content = <> {i.photo} <br /> <b> {i.city_name} </b> <br /> {i.start_date} - {i.end_date} <br /> {i.review} </>;
             });
-            setMarkers(res.results.map((i) => {return {position: i.position, content: i.content}}));
+            setMarkers(res.results.map((i) => {return { position: i.position, content: i.content}}));
         })
     }, []);
+
+    useEffect(() => {
+        displayMarkers();
+    }, []);
+
+    tripProps = {
+        username: userInfo.username,
+        displayMarkers: displayMarkers
+    }
 
     return (
       <>
@@ -40,6 +50,10 @@ export default function UserPage() {
         </div>
         <div>
             <Map center={[0, 0]} zoom={1} markers={markers} />
+        </div>
+        <div>
+            <h2>Add a Trip</h2>
+            <TripAdder {...tripProps} />
         </div>
       </>
     )

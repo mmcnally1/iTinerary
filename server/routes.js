@@ -1,6 +1,7 @@
 const config = require("./config.json");
 const mysql = require("mysql");
 const express = require("express");
+var qs = require("querystring");
 
 const connection = mysql.createConnection({
     host: config.rds_host,
@@ -91,9 +92,34 @@ async function getPlaces(req, res) {
     })
 }
 
+async function addTrip(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            INSERT INTO City
+            VALUES ('${data.username}', '${data.city}', '${data.photo}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+            `,
+            function (error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.json({ error: error });
+                } else {
+                    res.status(200).json("Trip Added!");
+                }
+            }
+        );
+    });
+}
+
 module.exports = {
     getUserInfo,
     getFriends,
     getTrips,
     getPlaces,
+    addTrip
 };

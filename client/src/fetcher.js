@@ -32,9 +32,20 @@ const getPlaces = async(username, city) => {
     return res.json();
 }
 
+const postTrip = async(data) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/addTrip`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+}
+
 export {
     getUserInfo,
     getFriends,
     getTrips,
-    getPlaces
+    getPlaces,
+    postTrip
 }

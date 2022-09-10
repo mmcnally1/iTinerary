@@ -21,6 +21,9 @@ app.get('/trips/:username', routes.getTrips);
 // Route 4: Get places visited given User, City
 app.get('/places/:username/:city', routes.getPlaces);
 
+// Route 5: Add trip to database
+app.post('/addTrip', routes.addTrip);
+
 app.listen(config.server_port, () => {
     console.log(`Server running at http://${config.server_host}:${config.server_port}/`);
 })
