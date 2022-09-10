@@ -6,15 +6,21 @@ import { postTrip } from '../fetcher.js';
 export default function TripAdder(props) {
     const onFinish = (values) => {
         values.username = props.username;
-        postTrip(values).then(() => {
-            props.displayMarkers();
+        postTrip(values).then((res) => {
+            res.text().then((data) => {
+                if (res.ok) {
+                    console.log(JSON.parse(data).message);
+                } else {
+                    alert(JSON.parse(data).message);
+                }
+            })
         });
 
     }
 
     return (
         <Form
-            name="tripAdder8-23-22"
+            name="tripAdder"
             layout="vertical"
             onFinish={onFinish}
         >

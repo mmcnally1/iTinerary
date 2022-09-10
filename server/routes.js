@@ -13,6 +13,27 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
+async function authenticateUser(req, res) {
+    const username = req.params.username;
+    const password = req.params.password;
+
+    connection.query(
+        `
+        SELECT username
+        FROM User
+        WHERE username = '${username}' AND password = '${password}'
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
+            }
+        }
+    )
+}
+
 async function getUserInfo(req, res) {
     const username = req.params.username;
     connection.query(
@@ -119,9 +140,9 @@ async function addTrip(req, res) {
                     function (error, results, fields) {
                         if (error) {
                             console.log(error);
-                            res.json({ error: error });
+                            res.status(400).send({ message: "Unable to add trip. May be a duplicate trip, or try a more specific search" });
                         } else {
-                            res.status(200).json("Trip Added!");
+                            res.status(200).send({ message: "Trip Added!" });
                         }
                     }
                 );
@@ -132,10 +153,76 @@ async function addTrip(req, res) {
     });
 }
 
+async function addPlace(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        opencage
+            .geocode(
+                {
+                    key: process.env.REACT_APP_GEOCODING_API_KEY,
+                    limit: 1,
+                    q: data.place
+                }
+            )
+            .then(response => {
+                data.lat = response.results[0].geometry.lat;
+                data.long = response.results[0].geometry.lng;
+                connection.query(
+                    `
+                    INSERT INTO Place
+                    VALUES ('${data.username}', '${data.city}', '${data.place}', '${data.photo}', '${data.review}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+                    `,
+                    function (error, results, fields) {
+                        if (error) {
+                            console.log(error);
+                            res.status(400).send({ message: "Unable to add location. May be a duplicate listing, or try a more specific search" });
+                        } else {
+                            res.status(200).send({ message: "Location Added!" });
+                        }
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    });
+}
+
+async function addUser(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            INSERT INTO User
+            VALUES ('${data.username}', '${data.bio}', '${data.photo}', '${data.password}')
+            `,
+            function (error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Username is taken" });
+                } else {
+                    res.status(200).send({ message: "User Added!" });
+                }
+            }
+        );
+    });
+}
+
 module.exports = {
+    authenticateUser,
     getUserInfo,
     getFriends,
     getTrips,
     getPlaces,
-    addTrip
+    addTrip,
+    addPlace,
+    addUser
 };

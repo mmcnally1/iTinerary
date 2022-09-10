@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { getUserInfo, getTrips } from '../fetcher.js';
 import TripAdder from '../components/TripAdder.js';
@@ -6,19 +7,20 @@ import TripAdder from '../components/TripAdder.js';
 import Map from '../components/Map'
 
 export default function UserPage() {
+    const navigate = useNavigate();
+
+    const activeUser = sessionStorage.getItem('active user');
+    useEffect(() => {
+        if (activeUser == '') {
+        navigate('/');
+        }
+    }, []);
     const [userInfo, setUserInfo] = useState({});
     const [markers, setMarkers] = useState([]);
     const [activeLocation, setActiveLocation] = useState(null);
 
-    /*
-    *  Query for user's info and trips
-    *  Display user's profile pic + bio at top of page
-    *  Display each trip as a marker on the map
-    *
-    *  Add trip button -> add trip sidebar or page
-    */
     useEffect(() => {
-        getUserInfo("Mike").then(res => {
+        getUserInfo(activeUser).then(res => {
             setUserInfo(res.results[0]);
         })
     }, []);
@@ -37,7 +39,7 @@ export default function UserPage() {
     }
 
     const displayMarkers = () => {
-        getTrips("Mike").then(res => {
+        getTrips(activeUser).then(res => {
             res.results.map((i) => {
                 i.position = [i.latitude, i.longitude];
                 i.start_date = i.start_date.slice(0, 10);
@@ -60,6 +62,13 @@ export default function UserPage() {
     return (
         <>
             <h1> {userInfo.username} </h1>
+            <p> {userInfo.about} </p>
+            <button
+                onClick={() => {
+                    sessionStorage.setItem('active user', '');
+                    navigate('/');
+                }}
+                >Logout</button>
             <Map markers={markers} clickFn={setActiveLocation} />
             {(activeLocation == null)
                 ? <h3>Select a destination from the map.</h3>

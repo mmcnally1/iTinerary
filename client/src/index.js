@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
     BrowserRouter,
@@ -9,6 +9,7 @@ import {
 import HomePage from './pages/HomePage';
 import TripPage from './pages/TripPage';
 import UserPage from './pages/UserPage';
+
 
 function App() {
     return (

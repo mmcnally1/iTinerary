@@ -2921,7 +2921,7 @@ function App() {
                     element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _homePageDefault.default), {}, void 0, false, void 0, void 0)
                 }, void 0, false, {
                     fileName: "src/index.js",
-                    lineNumber: 17,
+                    lineNumber: 18,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -2929,7 +2929,7 @@ function App() {
                     element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userPageDefault.default), {}, void 0, false, void 0, void 0)
                 }, void 0, false, {
                     fileName: "src/index.js",
-                    lineNumber: 18,
+                    lineNumber: 19,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -2937,18 +2937,18 @@ function App() {
                     element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _tripPageDefault.default), {}, void 0, false, void 0, void 0)
                 }, void 0, false, {
                     fileName: "src/index.js",
-                    lineNumber: 19,
+                    lineNumber: 20,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/index.js",
-            lineNumber: 16,
+            lineNumber: 17,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "src/index.js",
-        lineNumber: 15,
+        lineNumber: 16,
         columnNumber: 9
     }, this);
 }
@@ -2956,7 +2956,7 @@ _c = App;
 const root = (0, _reactDomDefault.default).createRoot(document.getElementById("root"));
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/index.js",
-    lineNumber: 26,
+    lineNumber: 27,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -28838,6 +28838,10 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _map = require("../components/Map");
 var _mapDefault = parcelHelpers.interopDefault(_map);
+var _loginForm = require("../components/LoginForm");
+var _loginFormDefault = parcelHelpers.interopDefault(_loginForm);
+var _signUpForm = require("../components/SignUpForm");
+var _signUpFormDefault = parcelHelpers.interopDefault(_signUpForm);
 function HomePage() {
     const markers = [
         {
@@ -28851,12 +28855,12 @@ function HomePage() {
                         children: "Wecome to San Diego "
                     }, void 0, false, {
                         fileName: "src/pages/HomePage.js",
-                        lineNumber: 4,
+                        lineNumber: 6,
                         columnNumber: 63
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "src/pages/HomePage.js",
-                        lineNumber: 4,
+                        lineNumber: 6,
                         columnNumber: 90
                     }, this),
                     " Sister City to Tijuana, Mexico; Yokohama, Japan; and Tema, Ghana "
@@ -28874,13 +28878,13 @@ function HomePage() {
                         children: "Welcome to Chicago"
                     }, void 0, false, {
                         fileName: "src/pages/HomePage.js",
-                        lineNumber: 5,
+                        lineNumber: 7,
                         columnNumber: 45
                     }, this),
                     " ",
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                         fileName: "src/pages/HomePage.js",
-                        lineNumber: 5,
+                        lineNumber: 7,
                         columnNumber: 71
                     }, this),
                     " Home of the Twinkie "
@@ -28894,7 +28898,7 @@ function HomePage() {
                 children: "iTinerary"
             }, void 0, false, {
                 fileName: "src/pages/HomePage.js",
-                lineNumber: 9,
+                lineNumber: 11,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mapDefault.default), {
@@ -28906,7 +28910,39 @@ function HomePage() {
                 markers: markers
             }, void 0, false, {
                 fileName: "src/pages/HomePage.js",
-                lineNumber: 10,
+                lineNumber: 12,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                        children: " Login "
+                    }, void 0, false, {
+                        fileName: "src/pages/HomePage.js",
+                        lineNumber: 14,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginFormDefault.default), {}, void 0, false, {
+                        fileName: "src/pages/HomePage.js",
+                        lineNumber: 15,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                        children: " Sign Up "
+                    }, void 0, false, {
+                        fileName: "src/pages/HomePage.js",
+                        lineNumber: 16,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signUpFormDefault.default), {}, void 0, false, {
+                        fileName: "src/pages/HomePage.js",
+                        lineNumber: 17,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/HomePage.js",
+                lineNumber: 13,
                 columnNumber: 7
             }, this)
         ]
@@ -28922,7 +28958,7 @@ $RefreshReg$(_c, "HomePage");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../components/Map":"6IT0T","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6IT0T":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","../components/Map":"6IT0T","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../components/LoginForm":"euEVE","../components/SignUpForm":"kTvqF"}],"6IT0T":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$29ee = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -40580,308 +40616,11 @@ const _getControl = (0, _leaflet.Control).extend({
 const _createControl = (props)=>new _getControl(props);
 exports.default = (0, _core.createControlComponent)(_createControl);
 
-},{"@react-leaflet/core":"ckhU0","leaflet":"iFbO2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a7Rzg":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$5f0d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"@react-leaflet/core":"ckhU0","leaflet":"iFbO2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"euEVE":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$1fb2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$5f0d.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _map = require("../components/Map");
-var _mapDefault = parcelHelpers.interopDefault(_map);
-function TripPage() {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-        children: "Trip Page"
-    }, void 0, false, {
-        fileName: "src/pages/TripPage.js",
-        lineNumber: 5,
-        columnNumber: 9
-    }, this);
-}
-exports.default = TripPage;
-_c = TripPage;
-var _c;
-$RefreshReg$(_c, "TripPage");
-
-  $parcel$ReactRefreshHelpers$5f0d.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../components/Map":"6IT0T"}],"lStC7":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$4e06 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$4e06.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _fetcherJs = require("../fetcher.js");
-var _tripAdderJs = require("../components/TripAdder.js");
-var _tripAdderJsDefault = parcelHelpers.interopDefault(_tripAdderJs);
-var _map = require("../components/Map");
-var _mapDefault = parcelHelpers.interopDefault(_map);
-var _s = $RefreshSig$();
-function UserPage() {
-    _s();
-    const [userInfo, setUserInfo] = (0, _react.useState)({});
-    const [markers, setMarkers] = (0, _react.useState)([]);
-    const [activeLocation, setActiveLocation] = (0, _react.useState)(null);
-    /*
-    *  Query for user's info and trips
-    *  Display user's profile pic + bio at top of page
-    *  Display each trip as a marker on the map
-    *
-    *  Add trip button -> add trip sidebar or page
-    */ (0, _react.useEffect)(()=>{
-        (0, _fetcherJs.getUserInfo)("Mike").then((res)=>{
-            setUserInfo(res.results[0]);
-        });
-    }, []);
-    //useEffect(() => console.log(JSON.stringify(activeLocation)), [activeLocation]);
-    function TripSummary({ info  }) {
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            className: "card",
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                    children: info.city
-                }, void 0, false, {
-                    fileName: "src/pages/UserPage.js",
-                    lineNumber: 30,
-                    columnNumber: 17
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("i", {
-                        children: [
-                            info.start_date,
-                            " to ",
-                            info.end_date
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/pages/UserPage.js",
-                        lineNumber: 31,
-                        columnNumber: 20
-                    }, this)
-                }, void 0, false, {
-                    fileName: "src/pages/UserPage.js",
-                    lineNumber: 31,
-                    columnNumber: 17
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: info.review
-                }, void 0, false, {
-                    fileName: "src/pages/UserPage.js",
-                    lineNumber: 33,
-                    columnNumber: 17
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/pages/UserPage.js",
-            lineNumber: 29,
-            columnNumber: 13
-        }, this);
-    }
-    const displayMarkers = ()=>{
-        (0, _fetcherJs.getTrips)("Mike").then((res)=>{
-            res.results.map((i)=>{
-                i.position = [
-                    i.latitude,
-                    i.longitude
-                ];
-                i.start_date = i.start_date.slice(0, 10);
-                i.end_date = i.end_date.slice(0, 10);
-                i.content = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                    children: [
-                        " ",
-                        i.photo,
-                        " ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                            fileName: "src/pages/UserPage.js",
-                            lineNumber: 45,
-                            columnNumber: 42
-                        }, this),
-                        " ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
-                            children: [
-                                " ",
-                                i.city_name,
-                                " "
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/pages/UserPage.js",
-                            lineNumber: 45,
-                            columnNumber: 49
-                        }, this),
-                        " ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                            fileName: "src/pages/UserPage.js",
-                            lineNumber: 45,
-                            columnNumber: 72
-                        }, this),
-                        " ",
-                        i.start_date,
-                        " - ",
-                        i.end_date,
-                        " ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                            fileName: "src/pages/UserPage.js",
-                            lineNumber: 45,
-                            columnNumber: 109
-                        }, this),
-                        " ",
-                        i.review,
-                        " "
-                    ]
-                }, void 0, true);
-            });
-            setMarkers(res.results.map((i)=>{
-                return {
-                    position: i.position,
-                    content: i.content
-                };
-            }));
-        });
-    };
-    (0, _react.useEffect)(()=>{
-        displayMarkers();
-    }, []);
-    tripProps = {
-        username: userInfo.username,
-        displayMarkers: displayMarkers
-    };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: [
-                    " ",
-                    userInfo.username,
-                    " "
-                ]
-            }, void 0, true, {
-                fileName: "src/pages/UserPage.js",
-                lineNumber: 62,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mapDefault.default), {
-                markers: markers,
-                clickFn: setActiveLocation
-            }, void 0, false, {
-                fileName: "src/pages/UserPage.js",
-                lineNumber: 63,
-                columnNumber: 13
-            }, this),
-            activeLocation == null ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                children: "Select a destination from the map."
-            }, void 0, false, {
-                fileName: "src/pages/UserPage.js",
-                lineNumber: 65,
-                columnNumber: 19
-            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(TripSummary, {
-                info: activeLocation
-            }, void 0, false, {
-                fileName: "src/pages/UserPage.js",
-                lineNumber: 66,
-                columnNumber: 19
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                        children: "Add a Trip"
-                    }, void 0, false, {
-                        fileName: "src/pages/UserPage.js",
-                        lineNumber: 68,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _tripAdderJsDefault.default), {
-                        ...tripProps
-                    }, void 0, false, {
-                        fileName: "src/pages/UserPage.js",
-                        lineNumber: 69,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/pages/UserPage.js",
-                lineNumber: 67,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true);
-}
-exports.default = UserPage;
-_s(UserPage, "5Hf0jA2VdEEHWf4Il0RRwlcVEBU=");
-_c = UserPage;
-var _c;
-$RefreshReg$(_c, "UserPage");
-
-  $parcel$ReactRefreshHelpers$4e06.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../components/Map":"6IT0T","react":"21dqq","../fetcher.js":"aPEFQ","../components/TripAdder.js":"4o3Li"}],"aPEFQ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getUserInfo", ()=>getUserInfo);
-parcelHelpers.export(exports, "getFriends", ()=>getFriends);
-parcelHelpers.export(exports, "getTrips", ()=>getTrips);
-parcelHelpers.export(exports, "getPlaces", ()=>getPlaces);
-parcelHelpers.export(exports, "postTrip", ()=>postTrip);
-var _configJson = require("./config.json");
-var _configJsonDefault = parcelHelpers.interopDefault(_configJson);
-// Fetch User's profile pic/bio
-const getUserInfo = async (username)=>{
-    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/userInfo/${username}`, {
-        method: "GET"
-    });
-    return res.json();
-};
-// Fetch User's friends + num trips for each friend
-const getFriends = async (username)=>{
-    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/friends/${username}`, {
-        method: "GET"
-    });
-    return res.json();
-};
-// Fetch User's trips
-const getTrips = async (username)=>{
-    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/trips/${username}`, {
-        method: "GET"
-    });
-    return res.json();
-};
-// Fetch Places given User, City
-const getPlaces = async (username, city)=>{
-    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/places/${username}/${city}`, {
-        method: "GET"
-    });
-    return res.json();
-};
-const postTrip = async (data)=>{
-    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/addTrip`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        header: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    });
-};
-
-},{"./config.json":"8VeYg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8VeYg":[function(require,module,exports) {
-module.exports = JSON.parse('{"server_host":"127.0.0.1","server_port":"8080"}');
-
-},{}],"4o3Li":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$89ce = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$89ce.prelude(module);
+$parcel$ReactRefreshHelpers$1fb2.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -40890,103 +40629,90 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _antd = require("antd");
+var _reactRouterDom = require("react-router-dom");
 var _fetcherJs = require("../fetcher.js");
-function TripAdder(props) {
-    const onFinish = (values)=>{
-        values.username = props.username;
-        (0, _fetcherJs.postTrip)(values).then(()=>{
-            props.displayMarkers();
+var _s = $RefreshSig$();
+function LoginForm() {
+    _s();
+    const navigate = (0, _reactRouterDom.useNavigate)();
+    const onLogin = (values)=>{
+        console.log(values);
+        (0, _fetcherJs.authenticateUser)(values.username, values.password).then((res)=>{
+            console.log(res);
+            if (res.results.length == 1) {
+                sessionStorage.setItem("active user", res.results[0].username);
+                navigate(`/profile`);
+            } else alert("Invalid username or password");
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form), {
-        name: "tripAdder8-23-22",
+        name: "login",
         layout: "vertical",
-        onFinish: onFinish,
+        onFinish: onLogin,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
-                label: "City",
-                name: "city",
+                label: "Username",
+                name: "username",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
-                    fileName: "src/components/TripAdder.js",
-                    lineNumber: 25,
-                    columnNumber: 13
+                    fileName: "src/components/LoginForm.js",
+                    lineNumber: 33,
+                    columnNumber: 17
                 }, this)
             }, void 0, false, {
-                fileName: "src/components/TripAdder.js",
-                lineNumber: 21,
-                columnNumber: 13
+                fileName: "src/components/LoginForm.js",
+                lineNumber: 29,
+                columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
-                label: "Photo",
-                name: "photo",
+                label: "Password",
+                name: "password",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
-                    fileName: "src/components/TripAdder.js",
-                    lineNumber: 31,
-                    columnNumber: 13
+                    fileName: "src/components/LoginForm.js",
+                    lineNumber: 39,
+                    columnNumber: 17
                 }, this)
             }, void 0, false, {
-                fileName: "src/components/TripAdder.js",
-                lineNumber: 27,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
-                label: "Trip Start Date (yyyy-mm-dd)",
-                name: "start_date",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
-                    fileName: "src/components/TripAdder.js",
-                    lineNumber: 37,
-                    columnNumber: 13
-                }, this)
-            }, void 0, false, {
-                fileName: "src/components/TripAdder.js",
-                lineNumber: 33,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
-                label: "Trip End Date (yyyy-mm-dd)",
-                name: "end_date",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
-                    fileName: "src/components/TripAdder.js",
-                    lineNumber: 43,
-                    columnNumber: 13
-                }, this)
-            }, void 0, false, {
-                fileName: "src/components/TripAdder.js",
-                lineNumber: 39,
-                columnNumber: 13
+                fileName: "src/components/LoginForm.js",
+                lineNumber: 35,
+                columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Button), {
                     htmlType: "submit",
-                    children: "Add Trip"
+                    children: "Login"
                 }, void 0, false, {
-                    fileName: "src/components/TripAdder.js",
-                    lineNumber: 46,
-                    columnNumber: 17
+                    fileName: "src/components/LoginForm.js",
+                    lineNumber: 42,
+                    columnNumber: 21
                 }, this)
             }, void 0, false, {
-                fileName: "src/components/TripAdder.js",
-                lineNumber: 45,
-                columnNumber: 13
+                fileName: "src/components/LoginForm.js",
+                lineNumber: 41,
+                columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
-        fileName: "src/components/TripAdder.js",
-        lineNumber: 16,
-        columnNumber: 9
+        fileName: "src/components/LoginForm.js",
+        lineNumber: 24,
+        columnNumber: 13
     }, this);
 }
-exports.default = TripAdder;
-_c = TripAdder;
+exports.default = LoginForm;
+_s(LoginForm, "CzcTeTziyjMsSrAVmHuCCb6+Bfg=", false, function() {
+    return [
+        (0, _reactRouterDom.useNavigate)
+    ];
+});
+_c = LoginForm;
 var _c;
-$RefreshReg$(_c, "TripAdder");
+$RefreshReg$(_c, "LoginForm");
 
-  $parcel$ReactRefreshHelpers$89ce.postlude(module);
+  $parcel$ReactRefreshHelpers$1fb2.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","antd":"6C7kW","../fetcher.js":"aPEFQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6C7kW":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","antd":"6C7kW","../fetcher.js":"aPEFQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"fdOAw"}],"6C7kW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "theme", ()=>theme);
@@ -60895,6 +60621,599 @@ var ClearableLabeledInput = /*#__PURE__*/ function(_React$Component) {
 }(_react.Component);
 exports.default = ClearableLabeledInput;
 
-},{"@babel/runtime/helpers/esm/defineProperty":"hbmCA","@babel/runtime/helpers/esm/classCallCheck":"aNx1x","@babel/runtime/helpers/esm/createClass":"kZyth","@babel/runtime/helpers/esm/inherits":"drFw3","@babel/runtime/helpers/esm/createSuper":"hp3mc","@ant-design/icons/es/icons/CloseCircleFilled":"hNhJu","classnames":"jocGM","react":"21dqq","../form/context":"flRlt","../_util/reactNode":"d1mV0","../_util/statusUtils":"gRi8E","../_util/type":"eWuNf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1xC6H","ShInH","8lqZg"], "8lqZg", "parcelRequire10b0")
+},{"@babel/runtime/helpers/esm/defineProperty":"hbmCA","@babel/runtime/helpers/esm/classCallCheck":"aNx1x","@babel/runtime/helpers/esm/createClass":"kZyth","@babel/runtime/helpers/esm/inherits":"drFw3","@babel/runtime/helpers/esm/createSuper":"hp3mc","@ant-design/icons/es/icons/CloseCircleFilled":"hNhJu","classnames":"jocGM","react":"21dqq","../form/context":"flRlt","../_util/reactNode":"d1mV0","../_util/statusUtils":"gRi8E","../_util/type":"eWuNf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aPEFQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "authenticateUser", ()=>authenticateUser);
+parcelHelpers.export(exports, "getUserInfo", ()=>getUserInfo);
+parcelHelpers.export(exports, "getFriends", ()=>getFriends);
+parcelHelpers.export(exports, "getTrips", ()=>getTrips);
+parcelHelpers.export(exports, "getPlaces", ()=>getPlaces);
+parcelHelpers.export(exports, "postTrip", ()=>postTrip);
+parcelHelpers.export(exports, "addUser", ()=>addUser);
+var _configJson = require("./config.json");
+var _configJsonDefault = parcelHelpers.interopDefault(_configJson);
+const authenticateUser = async (username, password)=>{
+    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/login/${username}/${password}`, {
+        method: "GET"
+    });
+    return res.json();
+};
+// Fetch User's profile pic/bio
+const getUserInfo = async (username)=>{
+    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/userInfo/${username}`, {
+        method: "GET"
+    });
+    return res.json();
+};
+// Fetch User's friends + num trips for each friend
+const getFriends = async (username)=>{
+    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/friends/${username}`, {
+        method: "GET"
+    });
+    return res.json();
+};
+// Fetch User's trips
+const getTrips = async (username)=>{
+    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/trips/${username}`, {
+        method: "GET"
+    });
+    return res.json();
+};
+// Fetch Places given User, City
+const getPlaces = async (username, city)=>{
+    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/places/${username}/${city}`, {
+        method: "GET"
+    });
+    return res.json();
+};
+const postTrip = async (data)=>{
+    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/addTrip`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        header: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    return res;
+};
+const addUser = async (data)=>{
+    var res = await fetch(`http://${(0, _configJsonDefault.default).server_host}:${(0, _configJsonDefault.default).server_port}/addUser`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        header: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    });
+    return res;
+};
+
+},{"./config.json":"8VeYg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8VeYg":[function(require,module,exports) {
+module.exports = JSON.parse('{"server_host":"127.0.0.1","server_port":"8080"}');
+
+},{}],"kTvqF":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$8fb6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$8fb6.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _antd = require("antd");
+var _reactRouterDom = require("react-router-dom");
+var _fetcherJs = require("../fetcher.js");
+var _s = $RefreshSig$();
+function SignUpForm() {
+    _s();
+    const navigate = (0, _reactRouterDom.useNavigate)();
+    const onSignUp = (values)=>{
+        if (!values.password) {
+            alert("Please choose a password");
+            return;
+        }
+        if (!values.username) {
+            alert("Please choose a username");
+            return;
+        }
+        if (values.password.length < 5) {
+            alert("Password must be at least 5 characters");
+            return;
+        }
+        if (values.username.length < 3) {
+            alert("Username must be at least 3 characters");
+            return;
+        }
+        (0, _fetcherJs.addUser)(values).then((res)=>{
+            res.text().then((data)=>{
+                if (res.ok) {
+                    console.log(JSON.parse(data).message);
+                    sessionStorage.setItem("active user", values.username);
+                    navigate("/profile");
+                } else alert(JSON.parse(data).message);
+            });
+        });
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form), {
+        name: "signup",
+        layout: "vertical",
+        onFinish: onSignUp,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "Username",
+                name: "username",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/SignUpForm.js",
+                    lineNumber: 50,
+                    columnNumber: 17
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/SignUpForm.js",
+                lineNumber: 46,
+                columnNumber: 17
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "Bio",
+                name: "bio",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/SignUpForm.js",
+                    lineNumber: 56,
+                    columnNumber: 17
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/SignUpForm.js",
+                lineNumber: 52,
+                columnNumber: 17
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "Profile Pic",
+                name: "photo",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/SignUpForm.js",
+                    lineNumber: 62,
+                    columnNumber: 17
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/SignUpForm.js",
+                lineNumber: 58,
+                columnNumber: 17
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "Password",
+                name: "password",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/SignUpForm.js",
+                    lineNumber: 68,
+                    columnNumber: 17
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/SignUpForm.js",
+                lineNumber: 64,
+                columnNumber: 17
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Button), {
+                    htmlType: "submit",
+                    children: "Sign Up"
+                }, void 0, false, {
+                    fileName: "src/components/SignUpForm.js",
+                    lineNumber: 71,
+                    columnNumber: 21
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/SignUpForm.js",
+                lineNumber: 70,
+                columnNumber: 17
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/SignUpForm.js",
+        lineNumber: 41,
+        columnNumber: 13
+    }, this);
+}
+exports.default = SignUpForm;
+_s(SignUpForm, "CzcTeTziyjMsSrAVmHuCCb6+Bfg=", false, function() {
+    return [
+        (0, _reactRouterDom.useNavigate)
+    ];
+});
+_c = SignUpForm;
+var _c;
+$RefreshReg$(_c, "SignUpForm");
+
+  $parcel$ReactRefreshHelpers$8fb6.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","antd":"6C7kW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../fetcher.js":"aPEFQ","react-router-dom":"fdOAw"}],"a7Rzg":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5f0d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5f0d.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _map = require("../components/Map");
+var _mapDefault = parcelHelpers.interopDefault(_map);
+function TripPage() {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+        children: "Trip Page"
+    }, void 0, false, {
+        fileName: "src/pages/TripPage.js",
+        lineNumber: 5,
+        columnNumber: 9
+    }, this);
+}
+exports.default = TripPage;
+_c = TripPage;
+var _c;
+$RefreshReg$(_c, "TripPage");
+
+  $parcel$ReactRefreshHelpers$5f0d.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../components/Map":"6IT0T"}],"lStC7":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$4e06 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$4e06.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactRouterDom = require("react-router-dom");
+var _fetcherJs = require("../fetcher.js");
+var _tripAdderJs = require("../components/TripAdder.js");
+var _tripAdderJsDefault = parcelHelpers.interopDefault(_tripAdderJs);
+var _map = require("../components/Map");
+var _mapDefault = parcelHelpers.interopDefault(_map);
+var _s = $RefreshSig$();
+function UserPage() {
+    _s();
+    const navigate = (0, _reactRouterDom.useNavigate)();
+    const activeUser = sessionStorage.getItem("active user");
+    (0, _react.useEffect)(()=>{
+        if (activeUser == "") navigate("/");
+    }, []);
+    const [userInfo, setUserInfo] = (0, _react.useState)({});
+    const [markers, setMarkers] = (0, _react.useState)([]);
+    const [activeLocation, setActiveLocation] = (0, _react.useState)(null);
+    (0, _react.useEffect)(()=>{
+        (0, _fetcherJs.getUserInfo)(activeUser).then((res)=>{
+            setUserInfo(res.results[0]);
+        });
+    }, []);
+    //useEffect(() => console.log(JSON.stringify(activeLocation)), [activeLocation]);
+    function TripSummary({ info  }) {
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "card",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                    children: info.city
+                }, void 0, false, {
+                    fileName: "src/pages/UserPage.js",
+                    lineNumber: 32,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("i", {
+                        children: [
+                            info.start_date,
+                            " to ",
+                            info.end_date
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/UserPage.js",
+                        lineNumber: 33,
+                        columnNumber: 20
+                    }, this)
+                }, void 0, false, {
+                    fileName: "src/pages/UserPage.js",
+                    lineNumber: 33,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: info.review
+                }, void 0, false, {
+                    fileName: "src/pages/UserPage.js",
+                    lineNumber: 35,
+                    columnNumber: 17
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/pages/UserPage.js",
+            lineNumber: 31,
+            columnNumber: 13
+        }, this);
+    }
+    const displayMarkers = ()=>{
+        (0, _fetcherJs.getTrips)(activeUser).then((res)=>{
+            res.results.map((i)=>{
+                i.position = [
+                    i.latitude,
+                    i.longitude
+                ];
+                i.start_date = i.start_date.slice(0, 10);
+                i.end_date = i.end_date.slice(0, 10);
+                i.content = /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                    children: [
+                        " ",
+                        i.photo,
+                        " ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/pages/UserPage.js",
+                            lineNumber: 47,
+                            columnNumber: 42
+                        }, this),
+                        " ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
+                            children: [
+                                " ",
+                                i.city_name,
+                                " "
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/pages/UserPage.js",
+                            lineNumber: 47,
+                            columnNumber: 49
+                        }, this),
+                        " ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/pages/UserPage.js",
+                            lineNumber: 47,
+                            columnNumber: 72
+                        }, this),
+                        " ",
+                        i.start_date,
+                        " - ",
+                        i.end_date,
+                        " ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/pages/UserPage.js",
+                            lineNumber: 47,
+                            columnNumber: 109
+                        }, this),
+                        " ",
+                        i.review,
+                        " "
+                    ]
+                }, void 0, true);
+            });
+            setMarkers(res.results.map((i)=>{
+                return {
+                    position: i.position,
+                    content: i.content
+                };
+            }));
+        });
+    };
+    (0, _react.useEffect)(()=>{
+        displayMarkers();
+    }, []);
+    tripProps = {
+        username: userInfo.username,
+        displayMarkers: displayMarkers
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                children: [
+                    " ",
+                    userInfo.username,
+                    " "
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/UserPage.js",
+                lineNumber: 64,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    " ",
+                    userInfo.about,
+                    " "
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/UserPage.js",
+                lineNumber: 65,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>{
+                    sessionStorage.setItem("active user", "");
+                    navigate("/");
+                },
+                children: "Logout"
+            }, void 0, false, {
+                fileName: "src/pages/UserPage.js",
+                lineNumber: 66,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mapDefault.default), {
+                markers: markers,
+                clickFn: setActiveLocation
+            }, void 0, false, {
+                fileName: "src/pages/UserPage.js",
+                lineNumber: 72,
+                columnNumber: 13
+            }, this),
+            activeLocation == null ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                children: "Select a destination from the map."
+            }, void 0, false, {
+                fileName: "src/pages/UserPage.js",
+                lineNumber: 74,
+                columnNumber: 19
+            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(TripSummary, {
+                info: activeLocation
+            }, void 0, false, {
+                fileName: "src/pages/UserPage.js",
+                lineNumber: 75,
+                columnNumber: 19
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: "Add a Trip"
+                    }, void 0, false, {
+                        fileName: "src/pages/UserPage.js",
+                        lineNumber: 77,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _tripAdderJsDefault.default), {
+                        ...tripProps
+                    }, void 0, false, {
+                        fileName: "src/pages/UserPage.js",
+                        lineNumber: 78,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/UserPage.js",
+                lineNumber: 76,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true);
+}
+exports.default = UserPage;
+_s(UserPage, "J7sy3JIdfjkHW6XlUR1Ne8ma6RY=", false, function() {
+    return [
+        (0, _reactRouterDom.useNavigate)
+    ];
+});
+_c = UserPage;
+var _c;
+$RefreshReg$(_c, "UserPage");
+
+  $parcel$ReactRefreshHelpers$4e06.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../components/Map":"6IT0T","react":"21dqq","../fetcher.js":"aPEFQ","../components/TripAdder.js":"4o3Li","react-router-dom":"fdOAw"}],"4o3Li":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$89ce = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$89ce.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _antd = require("antd");
+var _fetcherJs = require("../fetcher.js");
+function TripAdder(props) {
+    const onFinish = (values)=>{
+        values.username = props.username;
+        (0, _fetcherJs.postTrip)(values).then((res)=>{
+            res.text().then((data)=>{
+                if (res.ok) console.log(JSON.parse(data).message);
+                else alert(JSON.parse(data).message);
+            });
+        });
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form), {
+        name: "tripAdder",
+        layout: "vertical",
+        onFinish: onFinish,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "City",
+                name: "city",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/TripAdder.js",
+                    lineNumber: 31,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/TripAdder.js",
+                lineNumber: 27,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "Photo",
+                name: "photo",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/TripAdder.js",
+                    lineNumber: 37,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/TripAdder.js",
+                lineNumber: 33,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "Trip Start Date (yyyy-mm-dd)",
+                name: "start_date",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/TripAdder.js",
+                    lineNumber: 43,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/TripAdder.js",
+                lineNumber: 39,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                label: "Trip End Date (yyyy-mm-dd)",
+                name: "end_date",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Input), {}, void 0, false, {
+                    fileName: "src/components/TripAdder.js",
+                    lineNumber: 49,
+                    columnNumber: 13
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/TripAdder.js",
+                lineNumber: 45,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Form).Item, {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _antd.Button), {
+                    htmlType: "submit",
+                    children: "Add Trip"
+                }, void 0, false, {
+                    fileName: "src/components/TripAdder.js",
+                    lineNumber: 52,
+                    columnNumber: 17
+                }, this)
+            }, void 0, false, {
+                fileName: "src/components/TripAdder.js",
+                lineNumber: 51,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/TripAdder.js",
+        lineNumber: 22,
+        columnNumber: 9
+    }, this);
+}
+exports.default = TripAdder;
+_c = TripAdder;
+var _c;
+$RefreshReg$(_c, "TripAdder");
+
+  $parcel$ReactRefreshHelpers$89ce.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","antd":"6C7kW","../fetcher.js":"aPEFQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["1xC6H","ShInH","8lqZg"], "8lqZg", "parcelRequire10b0")
 
 //# sourceMappingURL=index.975ef6c8.js.map

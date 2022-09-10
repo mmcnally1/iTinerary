@@ -1,5 +1,12 @@
 import config from './config.json';
 
+const authenticateUser = async(username, password) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/login/${username}/${password}`, {
+        method: 'GET'
+    });
+    return res.json();
+}
+
 // Fetch User's profile pic/bio
 const getUserInfo = async (username) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/userInfo/${username}`, {
@@ -40,12 +47,26 @@ const postTrip = async(data) => {
             'Content-type': 'application/json; charset=UTF-8'
         }
     });
+    return res;
+}
+
+const addUser = async(data) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/addUser`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+    return res;
 }
 
 export {
+    authenticateUser,
     getUserInfo,
     getFriends,
     getTrips,
     getPlaces,
-    postTrip
+    postTrip,
+    addUser
 }

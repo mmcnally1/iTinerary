@@ -9,6 +9,8 @@ const app = express();
 
 app.use(cors({ credentials: true, origin: ['http://localhost:1234'] }));
 
+app.get('/login/:username/:password', routes.authenticateUser);
+
 // Route 1: Get User's profile pic/bio
 app.get('/userInfo/:username', routes.getUserInfo);
 
@@ -23,6 +25,8 @@ app.get('/places/:username/:city', routes.getPlaces);
 
 // Route 5: Add trip to database
 app.post('/addTrip', routes.addTrip);
+
+app.post('/addUser', routes.addUser);
 
 app.listen(config.server_port, () => {
     console.log(`Server running at http://${config.server_host}:${config.server_port}/`);
