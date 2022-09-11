@@ -21,7 +21,7 @@ export function LocationMarkers({ location, setLocation }) {
   )
 }
 
-export default function PlaceAdder({ location, setLocation }) {
+export default function PlaceAdder({ location, setLocation, places, setPlaces }) {
   // const onFinish = (values) => {
   //     values.username = props.username;
   //     postTrip(values).then(() => {
@@ -30,8 +30,21 @@ export default function PlaceAdder({ location, setLocation }) {
 
   // }
   //const { location, setLocation } = useContext(LocationContext);
-  const handleSubmit = (values) => {
-    console.log(values)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let trip = JSON.parse(sessionStorage.getItem("trip"))
+    let place = new Object()
+    place.name = name
+    place.description = description
+    place.files = files
+
+    let places = [...trip.data.places, place]
+    trip.data.places = places
+    sessionStorage.setItem("trip", JSON.stringify(trip))
+
+    setName('')
+    setDescription('')
+    setFiles([])
   }
 
   const [name, setName] = useState('')
@@ -63,7 +76,7 @@ export default function PlaceAdder({ location, setLocation }) {
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={e => handleSubmit(e)}>
       Location [{location && location.lat.toFixed(3)}, {location && location.lng.toFixed(3)}]
       <br />
       <label>
