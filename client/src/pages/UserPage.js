@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, createContext } from 'react';
 import { getUserInfo, getTrips } from '../fetcher.js';
 import TripAdder from '../components/TripAdder.js';
-import PlaceAdder, { LocationMarkers } from '../components/PlaceAdder.js';
-
+import PlaceAdder from '../components/PlaceAdder.js';
 import Map from '../components/Map'
 
 export default function UserPage() {
     const [userInfo, setUserInfo] = useState({});
     const [markers, setMarkers] = useState([]);
     const [activeLocation, setActiveLocation] = useState(null);
-
+    const [location, setLocation] = useState(null);
     /*
     *  Query for user's info and trips
     *  Display user's profile pic + bio at top of page
@@ -61,17 +59,23 @@ export default function UserPage() {
     return (
         <>
             <h1> {userInfo.username} </h1>
-            <Map markers={markers} clickFn={setActiveLocation} children={LocationMarkers} />
-            {(activeLocation == null)
-                ? <h3>Select a destination from the map.</h3>
-                : <TripSummary info={activeLocation} />}
+            <Map markers={markers}
+                clickFn={setActiveLocation}
+                location={location}
+                setLocation={setLocation} />
+            {
+                (activeLocation == null)
+                    ? <h3>Select a destination from the map.</h3>
+                    : <TripSummary info={activeLocation} />
+            }
             <div>
                 <h2>Add a Trip</h2>
-                <TripAdder {...tripProps} />
+                <TripAdder username={userInfo.username}
+                    displayMarkers={displayMarkers}
+                    location={location}
+                    setLocation={setLocation} />
                 <br />
-                <PlaceAdder {...tripProps} />
             </div>
-
         </>
     )
 }

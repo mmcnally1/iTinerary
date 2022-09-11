@@ -1,6 +1,48 @@
 import { useState } from "react"
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
 import ResetViewControl from '@20tab/react-leaflet-resetview';
+import { LocationContext } from '../pages/UserPage.js';
+import PlaceAdder, { LocationMarkers } from '../components/PlaceAdder.js';
+// export function LocationMarkers() {
+//   const { location, setLocation } = useContext(LocationContext);
+//   const map = useMapEvents({
+//     click(e) {
+//       //setPosition(e.latlng)
+//       setLocation(e.latlng)
+//       map.flyTo(e.latlng, 10)
+//       console.log(e.latlng)
+//     },
+//   })
+
+//   return location === null ? null : (
+//     <Marker position={location}>
+//       <Popup>{location}</Popup>
+//     </Marker>
+//   )
+
+// const map = useMapEvents({
+//   click(e) {
+//     map.locate()
+//   },
+//   locationfound(e) {
+//     console.log(e.latlng)
+//     setLocation(e.latlng)
+//     map.flyTo(e.latlng, 10)
+//     //markers.push(e.latlng);
+//     setMarkers((prev) => [...prev, e.latlng])
+//   }
+// })
+
+// return (
+//   <>
+//     {Object.values(markers).map(marker => <Markers markers={marker} clickFn={clickFn} />)}
+
+//     {/* {Object.entries(markers).map(([k, marker], i) => { */}
+//     {/*   <Marker key={i} position={marker} /> */}
+//     {/* })} */}
+//   </>)
+//}
+
 
 /**
  * @param center object with lat, lon array {[0, 0]}
@@ -33,7 +75,7 @@ function Markers({ markers, clickFn }) {
       </Marker>))
 }
 
-export default function Map({ markers, clickFn, children }) {
+export default function Map({ markers, clickFn, location, setLocation }) {
   const [leafletMap, setLeafletMap] = useState(null);
   const center = [0, 0]
   const zoom = 1
@@ -50,7 +92,8 @@ export default function Map({ markers, clickFn, children }) {
       title="Reset view"
       icon="&#x21ba"
     />
+
     <Markers markers={markers} clickFn={clickFn} />
-    {children}
+    <LocationMarkers location={location} setLocation={setLocation} />
   </MapContainer>)
 }

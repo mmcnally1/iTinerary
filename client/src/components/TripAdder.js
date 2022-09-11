@@ -2,53 +2,70 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
 
 import { postTrip } from '../fetcher.js';
+import PlaceAdder from './PlaceAdder.js';
 
-export default function TripAdder(props) {
+export default function TripAdder({ username, displayMarkers, location, setLocation }) {
+
+    const [startedTrip, setStartedTrip] = useState(false);
+    const [city, setCity] = useState(null);
+    const [start, setStart] = useState(null);
+    const [end, setEnd] = useState(null);
+    const [coords, setCoords] = useState(null);
+
     const onFinish = (values) => {
-        values.username = props.username;
+        values.username = username;
         postTrip(values).then(() => {
-            props.displayMarkers();
+            displayMarkers();
         });
 
     }
 
+    function TripSection() {
+        return (<>
+            Location [{location && location.lat.toFixed(3)}, {location && location.lng.toFixed(3)}]
+            <br />
+            <label>
+                City <br />
+                <input type="text"
+                    value={city}
+                    onChange={e => setCity(e.target.value)}
+                    required />
+            </label>
+            <br />
+            <label>
+                Start Date <br />
+                <input type="date"
+                    value={start}
+                    placeholder="YYYY-mm-dd"
+                    onChange={e => setStart(e.target.value)}
+                    required />
+            </label>
+            <br />
+            <label>
+                End Date <br />
+                <input type="date"
+                    value={end}
+                    placeholder="YYYY-mm-dd"
+                    onChange={e => setEnd(e.target.value)}
+                    required />
+            </label>
+            <br />
+            <button onClick={() => { setStartedTrip(true), setCoords(location) }}>Add Points of Interest</button>
+        </>)
+
+    }
+
     return (
-        <Form
-            name="tripAdder8-23-22"
-            layout="vertical"
-            onFinish={onFinish}
-        >
-            <Form.Item
-                label="City"
-                name="city"
-            >
-            <Input />
-            </Form.Item>
-            <Form.Item
-                label="Photo"
-                name="photo"
-            >
-            <Input />
-            </Form.Item>
-            <Form.Item
-                label="Trip Start Date (yyyy-mm-dd)"
-                name="start_date"
-            >
-            <Input />
-            </Form.Item>
-            <Form.Item
-                label="Trip End Date (yyyy-mm-dd)"
-                name="end_date"
-            >
-            <Input />
-            </Form.Item>
-            <Form.Item>
-                <Button
-                htmlType="submit"
-                >
-                Add Trip
-                </Button>
-            </Form.Item>
-        </Form>
+        <form onSubmit={onFinish}>
+            <TripSection />
+            <PlaceAdder location={location} setLocation={setLocation} />
+            {/* {!startedTrip */}
+            {/*     ? <TripSection /> */}
+            {/*     : <PlaceAdder location={location} setLocation={setLocation} /> */}
+            {/* } */}
+            <input type="submit" value="Add Trip" />
+        </form>
+
+
     );
 }
