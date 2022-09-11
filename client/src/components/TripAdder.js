@@ -93,7 +93,7 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
                     places={places}
                     setPlaces={setPlaces} />
             }
-            <input type="submit" value="Add Trip" disabled={places.length === 0} />
+            <input type="submit" value="Complete This Trip" disabled={places.length === 0} />
         </form>
 
 
