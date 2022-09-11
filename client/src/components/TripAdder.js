@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Input } from 'antd';
-
 import { postTrip } from '../fetcher.js';
 import PlaceAdder from './PlaceAdder.js';
 
@@ -14,8 +12,15 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
 
     const onFinish = (values) => {
         values.username = username;
-        postTrip(values).then(() => {
-            displayMarkers();
+        postTrip(values).then((res) => {
+            res.text().then((data) => {
+                if (res.ok) {
+                    console.log(JSON.parse(data).message);
+                    displayMarkers();
+                } else {
+                    alert(JSON.parse(data).message);
+                }
+            })
         });
 
     }

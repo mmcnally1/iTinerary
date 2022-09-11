@@ -13,11 +13,32 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
+async function authenticateUser(req, res) {
+    const username = req.params.username;
+    const password = req.params.password;
+
+    connection.query(
+        `
+        SELECT username
+        FROM User
+        WHERE username = '${username}' AND password = '${password}'
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
+            }
+        }
+    )
+}
+
 async function getUserInfo(req, res) {
     const username = req.params.username;
     connection.query(
         `
-        SELECT username, profile_pic, about
+        SELECT profile_pic, about
         FROM User
         WHERE username = '${username}'`,
         function (error, results, fields) {
@@ -32,25 +53,31 @@ async function getUserInfo(req, res) {
 }
 
 async function getFriends(req, res) {
-    res.json({
-        results: [
-            {
-                username: "Joe",
-                profile_pic: "Joe's profile pic",
-                num_trips: 5
-            },
-            {
-                username: "Adam",
-                profile_pic: "Adam's profile pic",
-                num_trips: 3
-            },
-            {
-                username: "Natalie",
-                profile_pic: "Natalie's profile pic",
-                num_trips: 7
+    const username = req.params.username;
+
+    connection.query(
+        `
+        WITH FriendsWith AS (
+            SELECT requester as friend
+            FROM Friends
+            WHERE requested = '${username}' AND confirmed = true
+        ),
+        FriendTo AS (
+            SELECT requested as friend
+            FROM Friends
+            WHERE requester = '${username}' AND confirmed = true
+        )
+        SELECT friend FROM FriendsWith UNION SELECT friend FROM FriendTo
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
             }
-        ]
-    })
+        }
+    )
 }
 
 async function getTrips(req, res) {
@@ -93,6 +120,26 @@ async function getPlaces(req, res) {
     })
 }
 
+async function getFriendRequests(req, res) {
+    const username = req.params.username;
+
+    connection.query(
+        `
+        SELECT requester
+        FROM Friends
+        WHERE requested = '${username}' AND confirmed = false
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
+            }
+        }
+    )
+}
+
 async function addTrip(req, res) {
     var body = '';
     req.on('data', (data) => {
@@ -119,9 +166,9 @@ async function addTrip(req, res) {
                     function (error, results, fields) {
                         if (error) {
                             console.log(error);
-                            res.json({ error: error });
+                            res.status(400).send({ message: "Unable to add trip. May be a duplicate trip, or try a more specific search" });
                         } else {
-                            res.status(200).json("Trip Added!");
+                            res.status(200).send({ message: "Trip Added!" });
                         }
                     }
                 );
@@ -132,10 +179,153 @@ async function addTrip(req, res) {
     });
 }
 
+async function addPlace(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        opencage
+            .geocode(
+                {
+                    key: process.env.REACT_APP_GEOCODING_API_KEY,
+                    limit: 1,
+                    q: data.place
+                }
+            )
+            .then(response => {
+                data.lat = response.results[0].geometry.lat;
+                data.long = response.results[0].geometry.lng;
+                connection.query(
+                    `
+                    INSERT INTO Place
+                    VALUES ('${data.username}', '${data.city}', '${data.place}', '${data.photo}', '${data.review}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+                    `,
+                    function (error, results, fields) {
+                        if (error) {
+                            console.log(error);
+                            res.status(400).send({ message: "Unable to add location. May be a duplicate listing, or try a more specific search" });
+                        } else {
+                            res.status(200).send({ message: "Location Added!" });
+                        }
+                    }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    });
+}
+
+async function addUser(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            INSERT INTO User
+            VALUES ('${data.username}', '${data.bio}', '${data.photo}', '${data.password}')
+            `,
+            function (error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Username is taken" });
+                } else {
+                    res.status(200).send({ message: "User Added!" });
+                }
+            }
+        );
+    });
+}
+
+async function sendFriendRequest(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+        `
+        INSERT INTO Friends
+        VALUES ('${data.requester}', '${data.requested}', false)
+
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.status(400).send({ message: "Send friend request failed" });
+            } else {
+                res.status(200).send({ message: "Friend request sent"});
+            }
+        });
+    });
+}
+
+async function confirmFriendRequest(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+        `
+        UPDATE Friends
+        SET confirmed = true
+        WHERE requester = '${data.requester}' AND requested = '${data.requested}'
+
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.status(400).send({ message: "Failed to confirm friend request" });
+            } else {
+                res.status(200).send({ message: "Friend request confirmed"});
+            }
+        });
+    });
+}
+
+async function denyFriendRequest(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+        `
+        DELETE FROM Friends
+        WHERE requester = '${data.requester}' AND requested = '${data.requested}'
+
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.status(400).send({ message: "Deny friend request failed" });
+            } else {
+                res.status(200).send({ message: "Friend request denied"});
+            }
+        });
+    });
+}
+
 module.exports = {
+    authenticateUser,
     getUserInfo,
     getFriends,
     getTrips,
     getPlaces,
-    addTrip
+    getFriendRequests,
+    addTrip,
+    addPlace,
+    addUser,
+    sendFriendRequest,
+    confirmFriendRequest,
+    denyFriendRequest
 };
