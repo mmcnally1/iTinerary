@@ -32,6 +32,10 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
   //const { location, setLocation } = useContext(LocationContext);
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (name === '' || description === '') {
+      alert("Please fill all fields and select a location for this entry.")
+      return
+    }
     let trip = JSON.parse(sessionStorage.getItem("trip"))
     let place = new Object()
     place.id = crypto.randomUUID()
