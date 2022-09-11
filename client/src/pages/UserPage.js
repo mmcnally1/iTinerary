@@ -1,3 +1,7 @@
+import React, { useState, useEffect, createContext } from 'react';
+import { getUserInfo, getTrips } from '../fetcher.js';
+import TripAdder from '../components/TripAdder.js';
+import Map from '../components/Map'
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -7,7 +11,8 @@ import {
     getFriends,
     getFriendRequests,
     confirmFriendRequest,
-    denyFriendRequest } from '../fetcher.js';
+    denyFriendRequest
+} from '../fetcher.js';
 
 import TripAdder from '../components/TripAdder.js';
 //import PlaceAdder, { LocationMarkers } from '../components/PlaceAdder.js';
@@ -26,12 +31,20 @@ export default function UserPage() {
     const [userInfo, setUserInfo] = useState({});
     const [markers, setMarkers] = useState([]);
     const [activeLocation, setActiveLocation] = useState(null);
+    const [location, setLocation] = useState(null);
+    /*
+    *  Query for user's info and trips
+    *  Display user's profile pic + bio at top of page
+    *  Display each trip as a marker on the map
+    *
+    *  Add trip button -> add trip sidebar or page
+    */
     const [friendRequests, setFriendRequests] = useState([]);
     const [friends, setFriends] = useState([]);
 
     useEffect(() => {
         if (activeUser == '') {
-        navigate('/');
+            navigate('/');
         }
         else {
             displayUserInfo();
@@ -142,28 +155,31 @@ export default function UserPage() {
             <NavBar />
             {(sessionStorage.getItem('active user') == userProfile && friendRequests.length > 0)
                 ? <FriendRequests {...friendRequestsProps} />
-            : <br/>}
+                : <br />}
             <h1> {userProfile} </h1>
             <h4> Bio: </h4>
             <p> {userInfo.about} </p>
             {(sessionStorage.getItem('active user') == userProfile && friends.length > 0)
                 ? <FriendList {...friendListProps} />
-                : <br/> }
-            <Map markers={markers} clickFn={setActiveLocation}/>
-            {(activeLocation == null)
-                ? <h3>Select a destination from the map.</h3>
-                : <TripSummary info={activeLocation} />}
+                : <br />}
+            <Map markers={markers}
+                clickFn={setActiveLocation}
+                location={location}
+                setLocation={setLocation} />
+            {
+                (activeLocation == null)
+                    ? <h3>Select a destination from the map.</h3>
+                    : <TripSummary info={activeLocation} />
+            }
             <div>
                 {(sessionStorage.getItem('active user') == userProfile)
-                ? <TripAdder {...tripProps} />
-            : <FriendAdder {...friendAdderProps} /> }
+                    ? <TripAdder username={userInfo.username}
+                        displayMarkers={displayMarkers}
+                        location={location}
+                        setLocation={setLocation} />
+                    : <FriendAdder {...friendAdderProps} />}
                 <br />
-                {
-                    //<PlaceAdder {...tripProps} />
-                }
-
             </div>
-
         </>
     )
 }

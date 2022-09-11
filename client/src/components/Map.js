@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
 import ResetViewControl from '@20tab/react-leaflet-resetview';
+import PlaceAdder, { LocationMarkers } from '../components/PlaceAdder.js';
 
 /**
  * @param center object with lat, lon array {[0, 0]}
@@ -33,7 +34,7 @@ function Markers({ markers, clickFn }) {
       </Marker>))
 }
 
-export default function Map({ markers, clickFn, children }) {
+export default function Map({ markers, clickFn, location, setLocation }) {
   const [leafletMap, setLeafletMap] = useState(null);
   const center = [0, 0]
   const zoom = 1
@@ -50,7 +51,8 @@ export default function Map({ markers, clickFn, children }) {
       title="Reset view"
       icon="&#x21ba"
     />
+
     <Markers markers={markers} clickFn={clickFn} />
-    {children}
+    <LocationMarkers location={location} setLocation={setLocation} />
   </MapContainer>)
 }
