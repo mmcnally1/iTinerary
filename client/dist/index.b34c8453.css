@@ -46,4 +46,14 @@ h1, h2, h3 {
   padding-inline: 10px;
 }
 
+.dropzone {
+  max-width: 100%;
+  height: 200px;
+  background: #fff;
+  border: 1px solid gray;
+  border-radius: 20px;
+  margin: 10px 0;
+  padding-inline: 10px;
+}
+
 /*# sourceMappingURL=index.b34c8453.css.map */

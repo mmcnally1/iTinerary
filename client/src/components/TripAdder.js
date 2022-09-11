@@ -10,6 +10,7 @@ export default function TripAdder(props) {
             res.text().then((data) => {
                 if (res.ok) {
                     console.log(JSON.parse(data).message);
+                    props.displayMarkers();
                 } else {
                     alert(JSON.parse(data).message);
                 }
@@ -24,6 +25,7 @@ export default function TripAdder(props) {
             layout="vertical"
             onFinish={onFinish}
         >
+            <h2>Add a Trip </h2>
             <Form.Item
                 label="City"
                 name="city"

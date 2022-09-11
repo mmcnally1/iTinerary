@@ -13,7 +13,7 @@ export default function LoginForm() {
             console.log(res);
             if (res.results.length == 1) {
                 sessionStorage.setItem('active user', res.results[0].username);
-                navigate(`/profile`);
+                navigate(`/profile/${res.results[0].username}`);
             } else {
                 alert('Invalid username or password')
             }

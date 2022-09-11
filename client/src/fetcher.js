@@ -39,6 +39,13 @@ const getPlaces = async(username, city) => {
     return res.json();
 }
 
+const getFriendRequests = async(username) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/getfriendRequests/${username}`, {
+        method: 'GET'
+    });
+    return res.json();
+}
+
 const postTrip = async(data) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/addTrip`, {
         method: 'POST',
@@ -61,12 +68,49 @@ const addUser = async(data) => {
     return res;
 }
 
+const sendFriendRequest = async(data) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/sendFriendRequest`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+    return res;
+}
+
+const confirmFriendRequest = async(data) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/confirmFriendRequest`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
+const denyFriendRequest = async(data) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/denyFriendRequest`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
 export {
     authenticateUser,
     getUserInfo,
     getFriends,
     getTrips,
     getPlaces,
+    getFriendRequests,
     postTrip,
-    addUser
+    addUser,
+    sendFriendRequest,
+    confirmFriendRequest,
+    denyFriendRequest
 }

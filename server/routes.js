@@ -38,7 +38,7 @@ async function getUserInfo(req, res) {
     const username = req.params.username;
     connection.query(
         `
-        SELECT username, profile_pic, about
+        SELECT profile_pic, about
         FROM User
         WHERE username = '${username}'`,
         function (error, results, fields) {
@@ -53,25 +53,31 @@ async function getUserInfo(req, res) {
 }
 
 async function getFriends(req, res) {
-    res.json({
-        results: [
-            {
-                username: "Joe",
-                profile_pic: "Joe's profile pic",
-                num_trips: 5
-            },
-            {
-                username: "Adam",
-                profile_pic: "Adam's profile pic",
-                num_trips: 3
-            },
-            {
-                username: "Natalie",
-                profile_pic: "Natalie's profile pic",
-                num_trips: 7
+    const username = req.params.username;
+
+    connection.query(
+        `
+        WITH FriendsWith AS (
+            SELECT requester as friend
+            FROM Friends
+            WHERE requested = '${username}' AND confirmed = true
+        ),
+        FriendTo AS (
+            SELECT requested as friend
+            FROM Friends
+            WHERE requester = '${username}' AND confirmed = true
+        )
+        SELECT friend FROM FriendsWith UNION SELECT friend FROM FriendTo
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
             }
-        ]
-    })
+        }
+    )
 }
 
 async function getTrips(req, res) {
@@ -112,6 +118,26 @@ async function getPlaces(req, res) {
             }
         ]
     })
+}
+
+async function getFriendRequests(req, res) {
+    const username = req.params.username;
+
+    connection.query(
+        `
+        SELECT requester
+        FROM Friends
+        WHERE requested = '${username}' AND confirmed = false
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
+            }
+        }
+    )
 }
 
 async function addTrip(req, res) {
@@ -216,13 +242,90 @@ async function addUser(req, res) {
     });
 }
 
+async function sendFriendRequest(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+        `
+        INSERT INTO Friends
+        VALUES ('${data.requester}', '${data.requested}', false)
+
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.status(400).send({ message: "Send friend request failed" });
+            } else {
+                res.status(200).send({ message: "Friend request sent"});
+            }
+        });
+    });
+}
+
+async function confirmFriendRequest(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+        `
+        UPDATE Friends
+        SET confirmed = true
+        WHERE requester = '${data.requester}' AND requested = '${data.requested}'
+
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.status(400).send({ message: "Failed to confirm friend request" });
+            } else {
+                res.status(200).send({ message: "Friend request confirmed"});
+            }
+        });
+    });
+}
+
+async function denyFriendRequest(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+        `
+        DELETE FROM Friends
+        WHERE requester = '${data.requester}' AND requested = '${data.requested}'
+
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.status(400).send({ message: "Deny friend request failed" });
+            } else {
+                res.status(200).send({ message: "Friend request denied"});
+            }
+        });
+    });
+}
+
 module.exports = {
     authenticateUser,
     getUserInfo,
     getFriends,
     getTrips,
     getPlaces,
+    getFriendRequests,
     addTrip,
     addPlace,
-    addUser
+    addUser,
+    sendFriendRequest,
+    confirmFriendRequest,
+    denyFriendRequest
 };
