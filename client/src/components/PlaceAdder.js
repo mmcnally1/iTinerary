@@ -34,6 +34,8 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
     e.preventDefault()
     let trip = JSON.parse(sessionStorage.getItem("trip"))
     let place = new Object()
+    place.id = crypto.randomUUID()
+    place.location = location
     place.name = name
     place.description = description
     place.files = files
@@ -41,7 +43,7 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
     let places = [...trip.data.places, place]
     trip.data.places = places
     sessionStorage.setItem("trip", JSON.stringify(trip))
-
+    setPlaces([...places, place])
     setName('')
     setDescription('')
     setFiles([])
@@ -76,7 +78,7 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
 
 
   return (
-    <form onSubmit={e => handleSubmit(e)}>
+    <form>
       Location [{location && location.lat.toFixed(3)}, {location && location.lng.toFixed(3)}]
       <br />
       <label>
@@ -107,7 +109,7 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
           {thumbs}
         </aside>
       </section>
-      <input type="submit" value="Add Location" />
+      <input type="submit" value="Add Location" onClick={handleSubmit} />
     </form>
   );
 }
