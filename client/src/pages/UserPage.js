@@ -26,21 +26,16 @@ export default function UserPage() {
     const navigate = useNavigate();
     let userProfile = useParams().user;
 
-    const activeUser = sessionStorage.getItem('active user');
+    const [activeUser, setActiveUser] = useState(sessionStorage.getItem('active user'));
 
     const [userInfo, setUserInfo] = useState({});
     const [markers, setMarkers] = useState([]);
     const [activeLocation, setActiveLocation] = useState(null);
     const [location, setLocation] = useState(null);
-    /*
-    *  Query for user's info and trips
-    *  Display user's profile pic + bio at top of page
-    *  Display each trip as a marker on the map
-    *
-    *  Add trip button -> add trip sidebar or page
-    */
+
     const [friendRequests, setFriendRequests] = useState([]);
     const [friends, setFriends] = useState([]);
+    const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
         if (activeUser == '') {
@@ -49,7 +44,7 @@ export default function UserPage() {
         else {
             displayUserInfo();
             displayFriendRequests();
-            displayFriends();
+            authenticateUser();
             displayMarkers();
         }
     }, []);
@@ -70,10 +65,18 @@ export default function UserPage() {
         });
     }
 
-    const displayFriends = () => {
-        getFriends(userProfile).then(res => {
+    const authenticateUser = () => {
+        if (activeUser == userProfile) {
+            setAuthenticated(true);
+        }
+        getFriends(userProfile.then(res => {
             setFriends(res.results);
-        })
+            for (var i = 0; i < res.results.length; i++) {
+                if (res.results[i].friend == activeUser) {
+                    setAuthenticated(true);
+                }
+            }
+        }))
     }
     //useEffect(() => console.log(JSON.stringify(activeLocation)), [activeLocation]);
 
@@ -135,7 +138,7 @@ export default function UserPage() {
     }
 
     friendAdderProps = {
-        requester: sessionStorage.getItem('active user'),
+        requester: activeUser,
         requested: userProfile
     }
 
@@ -153,13 +156,15 @@ export default function UserPage() {
     return (
         <>
             <NavBar />
-            {(sessionStorage.getItem('active user') == userProfile && friendRequests.length > 0)
+            {(activeUser == userProfile && friendRequests.length > 0)
                 ? <FriendRequests {...friendRequestsProps} />
                 : <br />}
             <h1> {userProfile} </h1>
             <h4> Bio: </h4>
-            <p> {userInfo.about} </p>
-            {(sessionStorage.getItem('active user') == userProfile && friends.length > 0)
+            {(authenticaed)
+                ? <p> {userInfo.about} </p>
+                : <br />}
+            {(authenticated && friends.length > 0)
                 ? <FriendList {...friendListProps} />
                 : <br />}
             <Map markers={markers}
@@ -172,7 +177,7 @@ export default function UserPage() {
                     : <TripSummary info={activeLocation} />
             }
             <div>
-                {(sessionStorage.getItem('active user') == userProfile)
+                {(activeUser == userProfile)
                     ? <TripAdder username={userInfo.username}
                         displayMarkers={displayMarkers}
                         location={location}
