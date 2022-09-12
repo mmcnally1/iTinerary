@@ -57,6 +57,17 @@ const postTrip = async(data) => {
     return res;
 }
 
+const postPlace = async(data) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/addPlace`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+    return res;
+}
+
 const addUser = async(data) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/addUser`, {
         method: 'POST',
@@ -109,6 +120,7 @@ export {
     getPlaces,
     getFriendRequests,
     postTrip,
+    postPlace,
     addUser,
     sendFriendRequest,
     confirmFriendRequest,

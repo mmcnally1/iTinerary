@@ -1,26 +1,21 @@
-import React, { useState, useEffect, createContext } from 'react';
-import { getUserInfo, getTrips } from '../fetcher.js';
+import React, { useState, useEffect } from 'react';
 import TripAdder from '../components/TripAdder.js';
 import Map from '../components/Map'
-import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
     getUserInfo,
     getTrips,
+    getPlaces,
     getFriends,
     getFriendRequests,
     confirmFriendRequest,
     denyFriendRequest
 } from '../fetcher.js';
 
-import TripAdder from '../components/TripAdder.js';
 //import PlaceAdder, { LocationMarkers } from '../components/PlaceAdder.js';
-import Map from '../components/Map';
 import NavBar from '../components/NavBar';
 import FriendAdder from '../components/FriendAdder';
-import FriendRequests from '../components/FriendRequests';
-import FriendList from '../components/FriendList';
 
 export default function UserPage() {
     const navigate = useNavigate();
@@ -32,8 +27,8 @@ export default function UserPage() {
     const [markers, setMarkers] = useState([]);
     const [activeLocation, setActiveLocation] = useState(null);
     const [location, setLocation] = useState(null);
+    const [zoom, setZoom] = useState(1);
 
-    const [friendRequests, setFriendRequests] = useState([]);
     const [friends, setFriends] = useState([]);
     const [authenticated, setAuthenticated] = useState(false);
 
@@ -42,10 +37,9 @@ export default function UserPage() {
             navigate('/');
         }
         else {
-            displayUserInfo();
-            displayFriendRequests();
             authenticateUser();
-            displayMarkers();
+            displayUserInfo();
+            displayTripMarkers();
         }
     }, []);
 
@@ -59,23 +53,20 @@ export default function UserPage() {
         });
     }
 
-    const displayFriendRequests = () => {
-        getFriendRequests(userProfile).then(res => {
-            setFriendRequests(res.results);
-        });
-    }
-
     const authenticateUser = () => {
         if (activeUser == userProfile) {
             setAuthenticated(true);
+            return;
         }
         getFriends(userProfile).then(res => {
             setFriends(res.results);
             for (var i = 0; i < res.results.length; i++) {
                 if (res.results[i].friend == activeUser) {
                     setAuthenticated(true);
+                    return;
                 }
             }
+            setAuthenticated(false);
         });
     }
     //useEffect(() => console.log(JSON.stringify(activeLocation)), [activeLocation]);
@@ -92,49 +83,37 @@ export default function UserPage() {
         )
     }
 
-    const displayMarkers = () => {
+    const displayTripMarkers = () => {
         getTrips(userProfile).then(res => {
             res.results.map((i) => {
                 i.position = [i.latitude, i.longitude];
                 i.start_date = i.start_date.slice(0, 10);
                 i.end_date = i.end_date.slice(0, 10);
-                i.content = <> {i.photo} <br /> <b> {i.city_name} </b> <br /> {i.start_date} - {i.end_date} <br /> {i.review} </>;
+                i.content = <> <b><font size="+1">{i.city_name}</font> </b> <br /> {i.start_date} to {i.end_date} </>;
             });
             setMarkers(res.results.map((i) => { return { position: i.position, content: i.content } }));
         })
     }
 
-    const handleConfirmFriendRequest = (values) => {
-        confirmFriendRequest(values).then((res) => {
-            console.log(res);
-            res.text().then((data) => {
-                if (res.ok) {
-                    console.log(JSON.parse(data).message);
-                    displayFriendRequests();
-                } else {
-                    alert(JSON.parse(data).message);
-                }
-            })
+    const displayPlaceMarkers = (city) => {
+        getPlaces(userProfile, "Chicago").then(res => {
+            res.results.map((i) => {
+                i.position = [i.latitude, i.longitude];
+                i.content = <> <b>{i.place_name}</b> <br /> {i.description} </>;
+            });
+            setMarkers(res.results.map((i) => {return { position: i.position, content: i.content }}));
         })
     }
 
-    const handleDenyFriendRequest = (values) => {
-        denyFriendRequest(values).then((res) => {
-            console.log(res);
-            res.text().then((data) => {
-                if (res.ok) {
-                    console.log(JSON.parse(data).message);
-                    displayFriendRequests();
-                } else {
-                    alert(JSON.parse(data).message);
-                }
-            })
-        })
+    const onCityClick = (city) => {
+        console.log(city);
+        setActiveLocation(city);
+        displayPlaceMarkers(city);
     }
 
     tripProps = {
         username: userProfile,
-        displayMarkers: displayMarkers
+        displayMarkers: displayTripMarkers
     }
 
     friendAdderProps = {
@@ -142,33 +121,26 @@ export default function UserPage() {
         requested: userProfile
     }
 
-    friendRequestsProps = {
-        friendRequests: friendRequests,
-        username: userProfile,
-        handleConfirmFriendRequest: handleConfirmFriendRequest,
-        handleDenyFriendRequest: handleDenyFriendRequest
-    }
-
-    friendListProps = {
-        friends: friends
+    navbarProps = {
+        activeUser: activeUser
     }
 
     return (
         <>
-            <NavBar />
-            {(activeUser == userProfile && friendRequests.length > 0)
-                ? <FriendRequests {...friendRequestsProps} />
-                : <br />}
+            <NavBar {...navbarProps} />
             <h1> {userProfile} </h1>
             <h4> Bio: </h4>
             {(authenticated)
                 ? <p> {userInfo.about} </p>
                 : <br />}
-            {(authenticated && friends.length > 0)
-                ? <FriendList {...friendListProps} />
-                : <br />}
+            <button onClick={() => {
+                    displayTripMarkers();
+                }}
+            >
+            Reset Map
+            </button>
             <Map markers={markers}
-                clickFn={setActiveLocation}
+                clickFn={onCityClick}
                 location={location}
                 setLocation={setLocation} />
             {
@@ -178,8 +150,8 @@ export default function UserPage() {
             }
             <div>
                 {(activeUser == userProfile)
-                    ? <TripAdder username={userInfo.username}
-                        displayMarkers={displayMarkers}
+                    ? <TripAdder username={userProfile}
+                        displayMarkers={displayTripMarkers}
                         location={location}
                         setLocation={setLocation} />
                     : <FriendAdder {...friendAdderProps} />}

@@ -12,7 +12,6 @@ export default function FriendList(props) {
 
     return (
         <Table
-            title={() => "Friend List"}
             dataSource={props.friends}
             columns={tableColumns}
             bordered

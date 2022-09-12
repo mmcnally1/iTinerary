@@ -21,6 +21,8 @@ export default function LoginForm() {
     }
 
     return (
+        <>
+            <h1>Login</h1>
             <Form
                 name="login"
                 layout="vertical"
@@ -45,5 +47,6 @@ export default function LoginForm() {
                     </Button>
                 </Form.Item>
             </Form>
+        </>
     );
 }

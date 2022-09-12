@@ -38,6 +38,8 @@ export default function SignUpForm() {
     }
 
     return (
+        <>
+            <h1>Sign Up</h1>
             <Form
                 name="signup"
                 layout="vertical"
@@ -65,7 +67,7 @@ export default function SignUpForm() {
                     label="Password"
                     name="password"
                 >
-                <Input />
+                <Input.Password />
                 </Form.Item>
                 <Form.Item>
                     <Button
@@ -74,5 +76,6 @@ export default function SignUpForm() {
                     </Button>
                 </Form.Item>
             </Form>
+        </>
     );
 }

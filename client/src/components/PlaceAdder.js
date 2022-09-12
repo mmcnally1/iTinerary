@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Marker, Popup, useMapEvents } from 'react-leaflet';
-import { useDropzone } from 'react-dropzone';
-import { postTrip } from '../fetcher.js';
+import { Previews, Dropzone } from './DropZone.js';
 
 export function LocationMarkers({ location, setLocation }) {
   //const { location, setLocation } = useContext(LocationContext);
@@ -21,80 +20,58 @@ export function LocationMarkers({ location, setLocation }) {
   )
 }
 
-export default function PlaceAdder({ location, setLocation }) {
-  // const onFinish = (values) => {
-  //     values.username = props.username;
-  //     postTrip(values).then(() => {
-  //         props.displayMarkers();
-  //     });
+export default function PlaceAdder({ location, setLocation, places, setPlaces }) {
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+    const [files, setFiles] = useState([]);
 
-  // }
-  //const { location, setLocation } = useContext(LocationContext);
-  const handleSubmit = (values) => {
-    console.log(values)
-  }
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (name === '' || description === '') {
+            alert("Please fill all fields and select a location");
+            return;
+        }
+        let trip = JSON.parse(sessionStorage.getItem("trip"));
+        let place = new Object();
+        place.id = crypto.randomUUID();
+        place.location = location;
+        place.name = name;
+        place.description = description;
+        place.files = files;
 
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [files, setFiles] = useState([]);
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
-    onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
+        let places = [...trip.data.places, place];
+        trip.data.places = places;
+        sessionStorage.setItem('trip', JSON.stringify(trip));
+        setPlaces([...places, place]);
+        setName('');
+        setDescription('');
+        setFiles([]);
+        console.log(JSON.parse(sessionStorage.getItem('trip')));
     }
-  });
 
-  const thumbs = files.map(file => (
-    <div key={file.name}>
-      <div>
-        <img
-          src={file.preview}
-        />
-      </div>
-    </div>
-  ));
-
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks
-    files.forEach(file => URL.revokeObjectURL(file.preview));
-  }, [files]);
-
-
-  return (
-    <form onSubmit={handleSubmit}>
-      Location [{location && location.lat.toFixed(3)}, {location && location.lng.toFixed(3)}]
-      <br />
-      <label>
-        Name <br />
-        <input type="text"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required />
-      </label>
-      <br />
-      <label>
-        Description <br />
-        <textarea
-          value={description}
-          placeholder={'Enter a description for this point of interest. '}
-          rows="10"
-          cols="50"
-          onChange={e => setDescription(e.target.value)}
-          required />
-      </label>
-      <br />
-      <section className="container">
-        <div {...getRootProps({ className: 'dropzone' })}>
-          <input {...getInputProps()} />
-          <p>Drag and drop photos here, or click to select files</p>
+    return (
+        <div>
+            City: {location}
+            <br />
+            <label>
+                Name <br />
+                <input type="text"
+                    value={name}
+                    onChange={e => setName(e.target.value)} />
+            </label>
+            <br />
+            <label>
+                Description <br />
+            <textarea
+                value={description}
+                placeholder={'Enter a description for this point of interest'}
+                rows="10"
+                cols="50"
+                onChange={e => setDescription(e.target.value)} />
+            </label>
+            <br />
+            <Previews files={files} setFiles={setFiles} />
+            <input type="submit" value="Add Location" onClick={handleSubmit} disabled={name.length === 0 || description.length === 0} />
         </div>
-        <aside>
-          {thumbs}
-        </aside>
-      </section>
-      <input type="submit" value="Add Location" />
-    </form>
-  );
+    );
 }

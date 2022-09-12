@@ -1,39 +1,70 @@
 import React, { useState, useEffect } from 'react';
-import { postTrip } from '../fetcher.js';
+import { Button, Form, Input } from 'antd';
+
+import { postTrip, postPlace } from '../fetcher.js';
 import PlaceAdder from './PlaceAdder.js';
 
 export default function TripAdder({ username, displayMarkers, location, setLocation }) {
 
     const [startedTrip, setStartedTrip] = useState(false);
-    const [city, setCity] = useState(null);
-    const [start, setStart] = useState(null);
-    const [end, setEnd] = useState(null);
-    const [coords, setCoords] = useState(null);
+    const [city, setCity] = useState('');
+    const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
+    const [coords, setCoords] = useState([]);
+    const [places, setPlaces] = useState([])
 
-    const onFinish = (values) => {
+    const onFinish = () => {
+        let values = JSON.parse(sessionStorage.getItem('trip'));
         values.username = username;
-        postTrip(values).then((res) => {
-            res.text().then((data) => {
-                if (res.ok) {
-                    console.log(JSON.parse(data).message);
-                    displayMarkers();
-                } else {
-                    alert(JSON.parse(data).message);
-                }
-            })
+        let tripValues = new Object();
+        tripValues.username = values.username;
+        tripValues.city = values.data.city;
+        tripValues.start_date = values.data.start;
+        tripValues.end_date = values.data.end;
+
+        let tripPlaces = values.data.places;
+
+        tripPlaces.map(place => {
+            place.username = values.username;
+            place.city = values.data.city;
         });
 
+        tripPlaces.forEach(place => {
+            postPlace(place);
+        });
+
+        postTrip(tripValues);
+    }
+
+    const handleTrip = () => {
+        if (location === [] || city === '' || start === '' || end === '') {
+            alert("Please fill all fields and place a marker on the map");
+            return;
+        }
+        let trip = new Object();
+        trip.id = crypto.randomUUID();
+
+        let data = new Object();
+        data.city = city;
+        data.start = start;
+        data.end = end;
+        data.places = places;
+
+        trip.data = data;
+
+        sessionStorage.setItem("trip", JSON.stringify(trip));
+        setStartedTrip(true);
     }
 
     function TripSection() {
         return (<>
-            Location [{location && location.lat.toFixed(3)}, {location && location.lng.toFixed(3)}]
-            <br />
             <label>
                 City <br />
                 <input type="text"
+                    key="city"
                     value={city}
                     onChange={e => setCity(e.target.value)}
+                    autoFocus
                     required />
             </label>
             <br />
@@ -55,22 +86,23 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
                     required />
             </label>
             <br />
-            <button onClick={() => { setStartedTrip(true), setCoords(location) }}>Add Points of Interest</button>
+            <button onClick={handleTrip}>Add Points of Interest</button>
+            <br />
         </>)
 
     }
 
     return (
         <form onSubmit={onFinish}>
-            <TripSection />
-            <PlaceAdder location={location} setLocation={setLocation} />
-            {/* {!startedTrip */}
-            {/*     ? <TripSection /> */}
-            {/*     : <PlaceAdder location={location} setLocation={setLocation} /> */}
-            {/* } */}
-            <input type="submit" value="Add Trip" />
+            {!startedTrip
+                ? <TripSection />
+                : <PlaceAdder
+                    location={city}
+                    setLocation={setLocation}
+                    places={places}
+                    setPlaces={setPlaces} />
+            }
+            <input type="submit" value="Complete This Trip" disabled={places.length === 0} />
         </form>
-
-
     );
 }

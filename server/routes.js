@@ -84,7 +84,7 @@ async function getTrips(req, res) {
     const username = req.params.username;
     connection.query(
         `
-        SELECT city_name, latitude, longitude, photo, start_date, end_date
+        SELECT city_name, latitude, longitude, start_date, end_date
         FROM City
         WHERE username = '${username}'
         `,
@@ -100,24 +100,24 @@ async function getTrips(req, res) {
 }
 
 async function getPlaces(req, res) {
-    res.json({
-        results: [
-            {
-                photo: "Portland Paddle photo",
-                city: "Portland",
-                place: "Portland Paddle",
-                review: "Kayaked",
-                date: "2022-08-25"
-            },
-            {
-                photo: "Food Photo",
-                city: "Portland",
-                place: "Duckfat",
-                review: "food was good",
-                date: "2022-08-26"
+    const username = req.params.username;
+    const city = req.params.city;
+
+    connection.query(
+        `
+        SELECT place_name, description, latitude, longitude
+        FROM Place
+        WHERE username = '${username}' AND city_name = '${city}'
+        `,
+        function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                res.json({ error: error });
+            } else if (results) {
+                res.json({ results: results });
             }
-        ]
-    })
+        }
+    );
 }
 
 async function getFriendRequests(req, res) {
@@ -161,7 +161,7 @@ async function addTrip(req, res) {
                 connection.query(
                     `
                     INSERT INTO City
-                    VALUES ('${data.username}', '${data.city}', '${data.photo}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+                    VALUES ('${data.username}', '${data.city}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
                     `,
                     function (error, results, fields) {
                         if (error) {
@@ -191,7 +191,7 @@ async function addPlace(req, res) {
                 {
                     key: process.env.REACT_APP_GEOCODING_API_KEY,
                     limit: 1,
-                    q: data.place
+                    q: data.name
                 }
             )
             .then(response => {
@@ -200,7 +200,7 @@ async function addPlace(req, res) {
                 connection.query(
                     `
                     INSERT INTO Place
-                    VALUES ('${data.username}', '${data.city}', '${data.place}', '${data.photo}', '${data.review}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+                    VALUES ('${data.username}', '${data.city}', '${data.name}', '${data.description}', ${data.lat}, ${data.long})
                     `,
                     function (error, results, fields) {
                         if (error) {

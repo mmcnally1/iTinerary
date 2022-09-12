@@ -28,6 +28,8 @@ app.get('/getFriendRequests/:username', routes.getFriendRequests);
 // Route 5: Add trip to database
 app.post('/addTrip', routes.addTrip);
 
+app.post('/addPlace', routes.addPlace);
+
 app.post('/addUser', routes.addUser);
 
 app.post('/sendFriendRequest', routes.sendFriendRequest);
