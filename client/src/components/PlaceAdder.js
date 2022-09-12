@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Marker, Popup, useMapEvents } from 'react-leaflet';
-import { useDropzone } from 'react-dropzone';
-import { postTrip } from '../fetcher.js';
+import { Previews, Dropzone } from './Dropzone.js'
 
 export function LocationMarkers({ location, setLocation }) {
   //const { location, setLocation } = useContext(LocationContext);
@@ -22,14 +21,9 @@ export function LocationMarkers({ location, setLocation }) {
 }
 
 export default function PlaceAdder({ location, setLocation, places, setPlaces }) {
-  // const onFinish = (values) => {
-  //     values.username = props.username;
-  //     postTrip(values).then(() => {
-  //         props.displayMarkers();
-  //     });
-
-  // }
-  //const { location, setLocation } = useContext(LocationContext);
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [files, setFiles] = useState([])
   const handleSubmit = (e) => {
     e.preventDefault()
     if (name === '' || description === '') {
@@ -51,46 +45,18 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
     setName('')
     setDescription('')
     setFiles([])
+    console.log(JSON.parse(sessionStorage.getItem("trip")))
   }
 
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [files, setFiles] = useState([]);
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
-    onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
-    }
-  });
-
-  const thumbs = files.map(file => (
-    <div key={file.name}>
-      <div>
-        <img
-          src={file.preview}
-        />
-      </div>
-    </div>
-  ));
-
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks
-    files.forEach(file => URL.revokeObjectURL(file.preview));
-  }, [files]);
-
-
   return (
-    <form>
+    <div>
       Location [{location && location.lat.toFixed(3)}, {location && location.lng.toFixed(3)}]
       <br />
       <label>
         Name <br />
         <input type="text"
           value={name}
-          onChange={e => setName(e.target.value)}
-          required />
+          onChange={e => setName(e.target.value)} />
       </label>
       <br />
       <label>
@@ -100,20 +66,11 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
           placeholder={'Enter a description for this point of interest. '}
           rows="10"
           cols="50"
-          onChange={e => setDescription(e.target.value)}
-          required />
+          onChange={e => setDescription(e.target.value)} />
       </label>
       <br />
-      <section className="container">
-        <div {...getRootProps({ className: 'dropzone' })}>
-          <input {...getInputProps()} />
-          <p>Drag and drop photos here, or click to select files</p>
-        </div>
-        <aside>
-          {thumbs}
-        </aside>
-      </section>
-      <input type="submit" value="Add Location" onClick={handleSubmit} />
-    </form>
+      <Previews files={files} setFiles={setFiles} />
+      <input type="submit" value="Add Location" onClick={handleSubmit} disabled={name.length === 0 || description.length === 0} />
+    </div>
   );
 }

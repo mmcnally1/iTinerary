@@ -13,14 +13,12 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
     const [coords, setCoords] = useState([]);
     const [places, setPlaces] = useState([]);
 
-
-    // get from sessionStorage
-    const onFinish = (values) => {
+    const onFinish = () => {
+        let values = JSON.parse(sessionStorage.getItem("trip"))
         values.username = username;
         postTrip(values).then(() => {
             displayMarkers();
         });
-
     }
 
     const handleTrip = () => {
@@ -53,8 +51,10 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
             <label>
                 City <br />
                 <input type="text"
+                    key="city"
                     value={city}
                     onChange={e => setCity(e.target.value)}
+                    autoFocus /* this is a hacky solution */
                     required />
             </label>
             <br />
@@ -77,6 +77,7 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
             </label>
             <br />
             <button onClick={handleTrip}>Add Points of Interest</button>
+            <br />
         </>)
 
     }
