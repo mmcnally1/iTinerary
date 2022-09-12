@@ -69,14 +69,14 @@ export default function UserPage() {
         if (activeUser == userProfile) {
             setAuthenticated(true);
         }
-        getFriends(userProfile.then(res => {
+        getFriends(userProfile).then(res => {
             setFriends(res.results);
             for (var i = 0; i < res.results.length; i++) {
                 if (res.results[i].friend == activeUser) {
                     setAuthenticated(true);
                 }
             }
-        }))
+        });
     }
     //useEffect(() => console.log(JSON.stringify(activeLocation)), [activeLocation]);
 
@@ -161,7 +161,7 @@ export default function UserPage() {
                 : <br />}
             <h1> {userProfile} </h1>
             <h4> Bio: </h4>
-            {(authenticaed)
+            {(authenticated)
                 ? <p> {userInfo.about} </p>
                 : <br />}
             {(authenticated && friends.length > 0)
