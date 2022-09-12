@@ -38,6 +38,7 @@ export default function Map({ markers, clickFn, location, setLocation }) {
   const [leafletMap, setLeafletMap] = useState(null);
   const center = [0, 0]
   const zoom = 1
+  let activeUser = sessionStorage.getItem('active user')
 
   return (<MapContainer
     center={center}
@@ -53,6 +54,9 @@ export default function Map({ markers, clickFn, location, setLocation }) {
     />
 
     <Markers markers={markers} clickFn={clickFn} />
-    <LocationMarkers location={location} setLocation={setLocation} />
+
+    {activeUser || activeUser !== ''
+      ? <></>
+      : <LocationMarkers location={location} setLocation={setLocation} />}
   </MapContainer>)
 }
