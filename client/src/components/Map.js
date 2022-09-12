@@ -55,7 +55,11 @@ export default function Map({ markers, clickFn, location, setLocation }) {
 
     <Markers markers={markers} clickFn={clickFn} />
 
+<<<<<<< HEAD
     {!activeUser || activeUser !== ''
+=======
+    {activeUser && activeUser !== ''
+>>>>>>> 82ff745c0d4c9dd076222b720f55f29dcc031f3d
       ? <></>
       : <LocationMarkers location={location} setLocation={setLocation} />}
   </MapContainer>)
