@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getFriends, getFriendRequests } from '../fetcher.js';
+import { getFriends, getFriendRequests, confirmFriendRequest, denyFriendRequest } from '../fetcher.js';
 import NavBar from '../components/NavBar';
 import FriendList from '../components/FriendList';
 import FriendRequests from '../components/FriendRequests'
