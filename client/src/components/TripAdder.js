@@ -33,7 +33,7 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
             postPlace(place);
         });
 
-        postTrip(tripValues);
+        postTrip(tripValues)
     }
 
     const handleTrip = () => {

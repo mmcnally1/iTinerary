@@ -87,7 +87,6 @@ export default function UserPage() {
     }
 
     const displayPlaceMarkers = (city) => {
-        console.log(city);
         getPlaces(userProfile, city).then(res => {
             console.log(res.results);
             res.results.map((i) => {
