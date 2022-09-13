@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { addUser } from '../fetcher.js';
 
-export default function SignUpForm() {
+export default function SignUpForm(props) {
     const navigate = useNavigate();
 
     const onSignUp = (values) => {
@@ -70,6 +70,11 @@ export default function SignUpForm() {
                     </Button>
                 </Form.Item>
             </Form>
+            <button
+                type="submit"
+                onClick={() => props.setSigningUp(false)}
+            > I need to log in
+            </button>
         </>
     );
 }
