@@ -4,11 +4,12 @@
   "description": "",
   "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel",
     "build": "parcel build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/mmcnally1/iTinerary/issues"
   },
-  "homepage": "https://github.com/mmcnally1/iTinerary#readme",
+  "homepage": "https://mmcnally1/github.io/iTinerary",
   "devDependencies": {
     "parcel": "^2.7.0",
     "process": "^0.11.10"
@@ -30,6 +31,7 @@
     "@coreui/coreui": "^4.2.2",
     "@coreui/react": "^4.3.1",
     "antd": "^4.16.13",
+    "gh-pages": "^4.0.0",
     "leaflet": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
