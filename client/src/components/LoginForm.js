@@ -8,7 +8,6 @@ export default function LoginForm() {
     const navigate = useNavigate();
 
     const onLogin = (values) => {
-        console.log(values);
         authenticateUser(values.username, values.password).then((res) => {
             console.log(res);
             if (res.results.length == 1) {
@@ -38,7 +37,7 @@ export default function LoginForm() {
                     label="Password"
                     name="password"
                 >
-                <Input />
+                <Input.Password />
                 </Form.Item>
                 <Form.Item>
                     <Button

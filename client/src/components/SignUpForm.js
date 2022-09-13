@@ -58,12 +58,6 @@ export default function SignUpForm() {
                 <Input />
                 </Form.Item>
                 <Form.Item
-                    label="Profile Pic"
-                    name="photo"
-                >
-                <Input />
-                </Form.Item>
-                <Form.Item
                     label="Password"
                     name="password"
                 >

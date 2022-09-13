@@ -46,3 +46,38 @@ h1,h2,h3{line-height:1.2}
 .dropzone-hover {
     border-color: #2196f3
 }
+
+.logout-button {
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.trip-adder {
+    margin-top: 30px;
+}
+
+.not-found {
+    text-align: center;
+}
+
+.map-div {
+    height: 540px;
+    width: 960px;
+}
+
+.map {
+    height: 100%;
+    minHeight: 100%;
+    width: 100%;
+    minWidth: 100%;
+}
+
+.login {
+    display: inline-block;
+    float: left;
+}
+
+.signup {
+    width: 10%;
+    display: inline-block;
+}

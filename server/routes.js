@@ -38,7 +38,7 @@ async function getUserInfo(req, res) {
     const username = req.params.username;
     connection.query(
         `
-        SELECT profile_pic, about
+        SELECT about
         FROM User
         WHERE username = '${username}'`,
         function (error, results, fields) {
@@ -101,13 +101,13 @@ async function getTrips(req, res) {
 
 async function getPlaces(req, res) {
     const username = req.params.username;
-    const city = req.params.city;
+    const city_name = req.params.city;
 
     connection.query(
         `
         SELECT place_name, description, latitude, longitude
         FROM Place
-        WHERE username = '${username}' AND city_name = '${city}'
+        WHERE username = '${username}' AND city_name = '${city_name}'
         `,
         function(error, results, fields) {
             if (error) {
@@ -181,6 +181,7 @@ async function addTrip(req, res) {
 
 async function addPlace(req, res) {
     var body = '';
+    var bounds = ''
     req.on('data', (data) => {
         body += data;
     });
@@ -191,29 +192,53 @@ async function addPlace(req, res) {
                 {
                     key: process.env.REACT_APP_GEOCODING_API_KEY,
                     limit: 1,
-                    q: data.name
+                    q: data.city,
                 }
             )
-            .then(response => {
-                data.lat = response.results[0].geometry.lat;
-                data.long = response.results[0].geometry.lng;
-                connection.query(
-                    `
-                    INSERT INTO Place
-                    VALUES ('${data.username}', '${data.city}', '${data.name}', '${data.description}', ${data.lat}, ${data.long})
-                    `,
-                    function (error, results, fields) {
-                        if (error) {
-                            console.log(error);
-                            res.status(400).send({ message: "Unable to add location. May be a duplicate listing, or try a more specific search" });
-                        } else {
-                            res.status(200).send({ message: "Location Added!" });
-                        }
+            .then(tResponse => {
+                let minLng = parseFloat(tResponse.results[0].geometry.lng) - 5;
+                bounds += minLng.toString() + ',';
+                let minLat = parseFloat(tResponse.results[0].geometry.lat) - 5;
+                bounds += minLat.toString() + ',';
+                let maxLng= parseFloat(tResponse.results[0].geometry.lng) + 5;
+                bounds += maxLng.toString() + ',';
+                let maxLat = parseFloat(tResponse.results[0].geometry.lat) + 5;
+                bounds += maxLat.toString();
+                opencage
+                    .geocode(
+                    {
+                        key: process.env.REACT_APP_GEOCODING_API_KEY,
+                        limit: 1,
+                        q: data.name,
+                        bounds: bounds
                     }
-                );
+                ).then(dResponse => {
+                    data.lat = dResponse.results[0].geometry.lat;
+                    data.long = dResponse.results[0].geometry.lng;
+                    connection.query(
+                        `
+                        INSERT INTO Place
+                        VALUES ('${data.username}', '${data.city}', '${data.name}', '${data.description}', '${data.lat}', '${data.long}')
+
+                        `,
+                        function(error, results, fields) {
+                            if (error) {
+                                console.log(error);
+                                res.json({ error: error });
+                            } else if (results) {
+                                res.json({ results: results });
+                            }
+                        }
+                    )
+                }).
+                catch(err => {
+                    console.log(err);
+                    res.json({ error: error });
+                })
             })
             .catch(err => {
                 console.log(err);
+                res.json({ error: error });
             });
     });
 }
@@ -228,7 +253,7 @@ async function addUser(req, res) {
         connection.query(
             `
             INSERT INTO User
-            VALUES ('${data.username}', '${data.bio}', '${data.photo}', '${data.password}')
+            VALUES ('${data.username}', '${data.bio}', '${data.password}')
             `,
             function (error, results, fields) {
                 if (error) {

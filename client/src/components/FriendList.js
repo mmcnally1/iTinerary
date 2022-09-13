@@ -6,7 +6,8 @@ export default function FriendList(props) {
         {
             title: 'Username',
             dataIndex: 'friend',
-            key: 'friend'
+            key: 'friend',
+            render: (text, record) => <a href={`/profile/${record.friend}`}>{text}</a>
         }
     ]
 

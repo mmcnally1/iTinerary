@@ -58,6 +58,8 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
 
     function TripSection() {
         return (<>
+            <h4>Click on a Marker to view a trip, or add a trip below </h4>
+            <div className="trip-adder">
             <label>
                 City <br />
                 <input type="text"
@@ -88,6 +90,7 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
             <br />
             <button onClick={handleTrip}>Add Points of Interest</button>
             <br />
+            </div>
         </>)
 
     }

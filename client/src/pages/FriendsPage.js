@@ -15,7 +15,8 @@ export default function FriendsPage() {
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
-        if (activeUser == '') {
+        if (!activeUser || activeUser == '') {
+            alert("Please login or create an account")
             navigate('/');
         } else {
             authenticateUser();
@@ -95,7 +96,7 @@ export default function FriendsPage() {
     return (
         <>
         <NavBar {...navbarProps} />
-        <h1> {userProfile}'s Friends </h1>
+        <h1> {userProfile}s Friends </h1>
         {(activeUser == userProfile && friendRequests.length > 0)
             ? <FriendRequests {...friendRequestsProps} />
             : <br />}

@@ -13,17 +13,25 @@ export default function HomePage() {
       activeUser: activeUser
   }
 
+  function SignIn(){
+      return (
+          <div>
+            <LoginForm
+                className="login"/>
+            <SignUpForm
+                className="signup"/>
+          </div>
+      )
+  }
+
   return (
-    <>
+      <>
       <NavBar {...navbarProps} />
-      <h1>iTinerary</h1>
+      <h1>Welcome to iTinerary!</h1>
       <Map markers={markers} />
       {(!activeUser || activeUser === '')
-      ? <LoginForm />
-      : <br />}
-      {(!activeUser || activeUser === '')
-      ? <SignUpForm />
-      : <br />}
+      ? <SignIn />
+      : <br/>}
     </>
   )
 }

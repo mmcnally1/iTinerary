@@ -31,14 +31,16 @@ export default function UserPage() {
 
     const [friends, setFriends] = useState([]);
     const [authenticated, setAuthenticated] = useState(false);
+    const [profileExists, setProfileExists] = useState(true);
 
     useEffect(() => {
-        if (activeUser == '') {
+        if (!activeUser || activeUser === '') {
+            alert("Please login or create an account");
             navigate('/');
         }
         else {
-            authenticateUser();
             displayUserInfo();
+            authenticateUser();
             displayTripMarkers();
         }
     }, []);
@@ -47,8 +49,10 @@ export default function UserPage() {
         getUserInfo(userProfile).then(res => {
             if (res.results.length == 1) {
                 setUserInfo(res.results[0]);
-            } else {
-                alert('Not a valid user profile page');
+                setProfileExists(true);
+            }
+            else {
+                setProfileExists(false);
             }
         });
     }
@@ -69,19 +73,6 @@ export default function UserPage() {
             setAuthenticated(false);
         });
     }
-    //useEffect(() => console.log(JSON.stringify(activeLocation)), [activeLocation]);
-
-    function TripSummary({ info }) {
-        return (
-            <div className="card">
-                <h2>{info.city}</h2>
-                <p><i>{info.start_date} to {info.end_date}</i></p>
-                {/* <img src="https://i.imgur.com/K9HVAGHl.jpg" alt={location.city} /> */}
-                <p>{info.review}</p>
-            </div>
-
-        )
-    }
 
     const displayTripMarkers = () => {
         getTrips(userProfile).then(res => {
@@ -91,12 +82,14 @@ export default function UserPage() {
                 i.end_date = i.end_date.slice(0, 10);
                 i.content = <> <b><font size="+1">{i.city_name}</font> </b> <br /> {i.start_date} to {i.end_date} </>;
             });
-            setMarkers(res.results.map((i) => { return { position: i.position, content: i.content } }));
+            setMarkers(res.results.map((i) => { return { position: i.position, content: i.content, city: i.city_name } }));
         })
     }
 
     const displayPlaceMarkers = (city) => {
-        getPlaces(userProfile, "Chicago").then(res => {
+        console.log(city);
+        getPlaces(userProfile, city).then(res => {
+            console.log(res.results);
             res.results.map((i) => {
                 i.position = [i.latitude, i.longitude];
                 i.content = <> <b>{i.place_name}</b> <br /> {i.description} </>;
@@ -105,9 +98,9 @@ export default function UserPage() {
         })
     }
 
-    const onCityClick = (city) => {
+    const onCityClick = (position, city) => {
         console.log(city);
-        setActiveLocation(city);
+        setActiveLocation(position);
         displayPlaceMarkers(city);
     }
 
@@ -129,32 +122,41 @@ export default function UserPage() {
         <>
             <NavBar {...navbarProps} />
             <h1> {userProfile} </h1>
-            <h4> Bio: </h4>
             {(authenticated)
                 ? <p> {userInfo.about} </p>
                 : <br />}
-            <button onClick={() => {
+            {profileExists
+                ? <button onClick={() => {
                     displayTripMarkers();
-                }}
-            >
-            Reset Map
-            </button>
-            <Map markers={markers}
-                clickFn={onCityClick}
-                location={location}
-                setLocation={setLocation} />
-            {
-                (activeLocation == null)
-                    ? <h3>Select a destination from the map.</h3>
-                    : <TripSummary info={activeLocation} />
-            }
-            <div>
-                {(activeUser == userProfile)
-                    ? <TripAdder username={userProfile}
-                        displayMarkers={displayTripMarkers}
+                    }}
+                    >
+                    Reset Map
+                </button>
+                : <br/>
+        }
+            {(profileExists)
+                ? ((authenticated)
+                    ? <Map markers={markers}
+                        clickFn={onCityClick}
                         location={location}
                         setLocation={setLocation} />
-                    : <FriendAdder {...friendAdderProps} />}
+                    : <Map markers={[]}
+                        clickFn={null}
+                        location={null}
+                        setLocation={null} />)
+                : <br/>}
+            <div>
+                {(profileExists)
+                    ? ((activeUser == userProfile)
+                        ? <TripAdder
+                            username={userProfile}
+                            displayMarkers={displayTripMarkers}
+                            location={location}
+                            setLocation={setLocation} />
+                        : (!authenticated)
+                            ? <FriendAdder {...friendAdderProps} />
+                            : <br />)
+                    : <h1 className="not-found">404: User Not Found</h1>}
                 <br />
             </div>
         </>

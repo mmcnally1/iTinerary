@@ -2,6 +2,7 @@ import { useState } from "react"
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
 import ResetViewControl from '@20tab/react-leaflet-resetview';
 import PlaceAdder, { LocationMarkers } from '../components/PlaceAdder.js';
+import '../static/main.css';
 
 /**
  * @param center object with lat, lon array {[0, 0]}
@@ -24,7 +25,8 @@ function Markers({ markers, clickFn }) {
             e.target.closePopup();
           },
           click: (e) => {
-            clickFn(item.data);
+            console.log(item);
+            clickFn(item.position, item.city);
             leafletMap.setView(item.position, 10);
           }
         }}>
@@ -36,11 +38,14 @@ function Markers({ markers, clickFn }) {
 
 export default function Map({ markers, clickFn, location, setLocation }) {
   const [leafletMap, setLeafletMap] = useState(null);
-  const center = [0, 0]
-  const zoom = 1
+  const center = [20, 0]
+  const zoom = 2
   let activeUser = sessionStorage.getItem('active user')
 
-  return (<MapContainer
+  return (
+      <div className="map-div">
+      <MapContainer
+    className="map"
     center={center}
     zoom={zoom}
     scrollWheelZoom={false}
@@ -58,5 +63,6 @@ export default function Map({ markers, clickFn, location, setLocation }) {
     {!activeUser || activeUser !== ''
       ? <></>
       : <LocationMarkers location={location} setLocation={setLocation} />}
-  </MapContainer>)
+  </MapContainer>
+</div>)
 }

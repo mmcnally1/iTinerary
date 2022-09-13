@@ -50,8 +50,8 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
     }
 
     return (
-        <div>
-            City: {location}
+        <div className="trip-adder">
+            <b>Add places you visited in {location} </b>
             <br />
             <label>
                 Name <br />
