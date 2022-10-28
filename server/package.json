@@ -6,9 +6,5 @@
         "express": "^4.17.1",
         "mysql": "^2.18.1",
         "opencage-api-client": "^1.0.0"
-    },
-    "script": {
-        "start": "node server.js",
-        "heroku-postbuild": "cd client && npm install && npm run build"
     }
 }
