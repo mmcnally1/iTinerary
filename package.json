@@ -2,6 +2,10 @@
     "name": "iTinerary",
     "version": "1.0.0",
     "main": "",
+    "dependencies": {
+        "parcel": "^2.7.0",
+        "process": "^0.11.10"
+    }
     "scripts": {
         "start": "node server.js",
         "install-client": "cd client && npm install && npm run build && cd ..",
