@@ -1,5 +1,5 @@
 const express = require('express');
-//const mysql = require('mysql');
+const path = require("path");
 var cors = require('cors');
 
 const routes = require('./routes');
@@ -7,7 +7,7 @@ const config = require('./config.json');
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: ['http://localhost:1234'] }));
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 app.get('/login/:username/:password', routes.authenticateUser);
 
