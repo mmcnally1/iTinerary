@@ -7,16 +7,11 @@ const config = require('./config.json');
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.use(express.static('client/dist'));
 
-app.get('/', (req, res, next) => {
-    res.status(200).json({
-        status: 'success',
-        data: {
-            name: 'iTinerary',
-            version: "1.0.0"
-        }
-    });
+
+app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
 });
 
 app.get('/login/:username/:password', routes.authenticateUser);
