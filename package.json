@@ -7,7 +7,7 @@
         "process": "^0.11.10"
     },
     "scripts": {
-        "start": "node client/index.js",
+        "start": "node server/server.js",
         "install-client": "cd client && npm install && npm run build && cd ..",
         "install-server": "cd server && npm install && cd ..",
         "heroku-postbuild": "npm run install-server && npm run install-client"
