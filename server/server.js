@@ -3,7 +3,7 @@ const path = require("path");
 var cors = require('cors');
 
 const routes = require('./routes');
-//const config = require('./config.json');
+const config = require('./config.json');
 
 const app = express();
 
@@ -38,7 +38,7 @@ app.post('/confirmFriendRequest', routes.confirmFriendRequest);
 
 app.post('/denyFriendRequest', routes.denyFriendRequest);
 
-//app.listen(config.server_port, () => {
-//    console.log(`Server running at http://${config.server_host}:${config.server_port}/`);
-//})
+app.listen(process.env.PORT, () => {
+    console.log(`Server running at http://mm-itinerary.herokuapp.com:${process.env.PORT}/`);
+})
 module.exports = app;
