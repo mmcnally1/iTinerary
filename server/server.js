@@ -9,11 +9,6 @@ const app = express();
 
 app.use(express.static('client/dist'));
 
-
-app.get('*', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
-});
-
 app.get('/login/:username/:password', routes.authenticateUser);
 
 // Route 1: Get User's profile pic/bio
@@ -42,6 +37,10 @@ app.post('/sendFriendRequest', routes.sendFriendRequest);
 app.post('/confirmFriendRequest', routes.confirmFriendRequest);
 
 app.post('/denyFriendRequest', routes.denyFriendRequest);
+
+app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
+});
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running at http://mm-itinerary.herokuapp.com:${process.env.PORT}/`);
