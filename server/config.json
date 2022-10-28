@@ -4,6 +4,4 @@
     "rds_user": "admin",
     "rds_password": "hackathon",
     "rds_db": "itinerary",
-    "server_host": "127.0.0.1",
-    "server_port": "8080"
 }
