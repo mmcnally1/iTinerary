@@ -9,6 +9,16 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
+app.get('/', (req, res, next) => {
+    res.status(200).json({
+        status: 'success',
+        data: {
+            name: 'iTinerary',
+            version: "1.0.0"
+        }
+    });
+});
+
 app.get('/login/:username/:password', routes.authenticateUser);
 
 // Route 1: Get User's profile pic/bio
