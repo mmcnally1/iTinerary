@@ -78,18 +78,18 @@ export default function FriendsPage() {
         })
     }
 
-    friendRequestsProps = {
+    const friendRequestsProps = {
         friendRequests: friendRequests,
         username: userProfile,
         handleConfirmFriendRequest: handleConfirmFriendRequest,
         handleDenyFriendRequest: handleDenyFriendRequest
     }
 
-    friendListProps = {
+    const friendListProps = {
         friends: friends
     }
 
-    navbarProps = {
+    const navbarProps = {
         activeUser: activeUser
     }
 
