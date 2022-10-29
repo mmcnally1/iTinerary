@@ -39,7 +39,7 @@ app.post('/confirmFriendRequest', routes.confirmFriendRequest);
 app.post('/denyFriendRequest', routes.denyFriendRequest);
 
 app.get('*', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, '../client', 'index.html'))
+    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'))
 });
 
 app.listen(process.env.PORT, () => {
