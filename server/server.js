@@ -38,7 +38,7 @@ app.post('/confirmFriendRequest', routes.confirmFriendRequest);
 
 app.post('/denyFriendRequest', routes.denyFriendRequest);
 
-app.listen(config.server_port, () => {
-    console.log(`Server running at http://${config.server_host}:${config.server_port}/`);
+app.listen(process.env.PORT || config.server_port, () => {
+    console.log(`Server running ...`);
 })
 module.exports = app;
