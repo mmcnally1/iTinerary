@@ -103,17 +103,17 @@ export default function UserPage() {
         displayPlaceMarkers(city);
     }
 
-    tripProps = {
+    const tripProps = {
         username: userProfile,
         displayMarkers: displayTripMarkers
     }
 
-    friendAdderProps = {
+    const friendAdderProps = {
         requester: activeUser,
         requested: userProfile
     }
 
-    navbarProps = {
+    const navbarProps = {
         activeUser: activeUser
     }
 

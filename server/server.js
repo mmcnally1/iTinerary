@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require("path");
+//const mysql = require('mysql');
 var cors = require('cors');
 
 const routes = require('./routes');
@@ -7,7 +7,7 @@ const config = require('./config.json');
 
 const app = express();
 
-app.use(express.static('client/dist'));
+app.use(cors({ credentials: true, origin: ['http://localhost:1234'] }));
 
 app.get('/login/:username/:password', routes.authenticateUser);
 
@@ -38,11 +38,7 @@ app.post('/confirmFriendRequest', routes.confirmFriendRequest);
 
 app.post('/denyFriendRequest', routes.denyFriendRequest);
 
-app.get('*', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, '../client/src', 'index.js'))
-});
-
-app.listen(process.env.PORT, () => {
-    console.log(`Server running at http://mm-itinerary.herokuapp.com:${process.env.PORT}/`);
+app.listen(config.server_port, () => {
+    console.log(`Server running at http://${config.server_host}:${config.server_port}/`);
 })
 module.exports = app;
