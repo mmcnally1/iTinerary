@@ -5,7 +5,7 @@
   "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel build",
+    "dev": "parcel",
     "build": "parcel build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "predeploy": "npm run build",
@@ -39,8 +39,5 @@
     "react-leaflet": "^4.0.2",
     "react-refresh": "^0.14.0",
     "react-router-dom": "^6.3.0"
-},
-  "engines": {
-      "node": "14.x"
   }
 }
