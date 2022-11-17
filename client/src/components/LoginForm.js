@@ -4,17 +4,28 @@ import { useNavigate } from 'react-router-dom';
 
 import { authenticateUser } from '../fetcher.js';
 
+const bcrypt = require('bcryptjs');
+
 export default function LoginForm(props) {
     const navigate = useNavigate();
 
     const onLogin = (values) => {
-        authenticateUser(values.username, values.password).then((res) => {
-            //console.log(res);
+        authenticateUser(values.username).then((res) => {
             if (res.results.length == 1) {
-                sessionStorage.setItem('active user', res.results[0].username);
-                navigate(`/profilePage/${res.results[0].username}`);
+                bcrypt.compare(values.password.toString(), res.results[0].password, (err, valid) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else if (valid) {
+                        sessionStorage.setItem('active user', res.results[0].username);
+                        navigate(`/profilePage/${res.results[0].username}`);
+                    }
+                    else {
+                        alert('Invalid password')
+                    }
+                });
             } else {
-                alert('Invalid username or password')
+                alert('Invalid username')
             }
         });
     }

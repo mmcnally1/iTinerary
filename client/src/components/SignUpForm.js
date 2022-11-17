@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { addUser } from '../fetcher.js';
 
+const bcrypt = require('bcryptjs');
+
 export default function SignUpForm(props) {
     const navigate = useNavigate();
 
@@ -24,17 +26,26 @@ export default function SignUpForm(props) {
             alert('Username must be at least 3 characters');
             return;
         }
-        addUser(values).then((res) => {
-            res.text().then((data) => {
-                if (res.ok) {
-                    console.log(JSON.parse(data).message);
-                    sessionStorage.setItem('active user', values.username);
-                    navigate(`/profilePage/${values.username}`);
-                } else {
-                    alert(JSON.parse(data).message);
-                }
-            });
-        });
+        bcrypt.hash(values.password, 8, (err, hash) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                values.password = hash;
+                addUser(values).then((res) => {
+                    res.text().then((data) => {
+                        if (res.ok) {
+                            console.log(JSON.parse(data).message);
+                            sessionStorage.setItem('active user', values.username);
+                            navigate(`/profilePage/${values.username}`);
+                        } else {
+                            alert(JSON.parse(data).message);
+                        }
+                    });
+                });
+
+            }
+        })
     }
 
     return (

@@ -12,7 +12,7 @@ const port = process.env.PORT || config.server_port;
 app.use(cors({ credentials: true, origin: [`http://localhost:${port}`] }));
 app.use(express.static("public"));
 
-app.get('/login/:username/:password', routes.authenticateUser);
+app.get('/login/:username/', routes.authenticateUser);
 
 // Route 1: Get User's profile pic/bio
 app.get('/userInfo/:username', routes.getUserInfo);

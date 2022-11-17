@@ -15,13 +15,12 @@ connection.connect();
 
 async function authenticateUser(req, res) {
     const username = req.params.username;
-    const password = req.params.password;
 
     connection.query(
         `
-        SELECT username
+        SELECT username, password
         FROM User
-        WHERE username = '${username}' AND password = '${password}'
+        WHERE username = '${username}'
         `,
         function(error, results, fields) {
             if (error) {

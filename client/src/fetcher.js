@@ -1,7 +1,7 @@
 import config from './config.json';
 
-const authenticateUser = async(username, password) => {
-    var res = await fetch(`/login/${username}/${password}`, {
+const authenticateUser = async(username) => {
+    var res = await fetch(`/login/${username}`, {
         method: 'GET'
     });
     return res.json();
