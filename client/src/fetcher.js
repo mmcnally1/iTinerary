@@ -1,7 +1,7 @@
 import config from './config.json';
 
 const authenticateUser = async(username, password) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/login/${username}/${password}`, {
+    var res = await fetch(`/login/${username}/${password}`, {
         method: 'GET'
     });
     return res.json();
@@ -9,7 +9,7 @@ const authenticateUser = async(username, password) => {
 
 // Fetch User's profile pic/bio
 const getUserInfo = async (username) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/userInfo/${username}`, {
+    var res = await fetch(`/userInfo/${username}`, {
         method: 'GET'
     });
     return res.json();
@@ -17,7 +17,7 @@ const getUserInfo = async (username) => {
 
 // Fetch User's friends + num trips for each friend
 const getFriends = async (username) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/friends/${username}`, {
+    var res = await fetch(`/friends/${username}`, {
         method: 'GET'
     });
     return res.json();
@@ -25,7 +25,7 @@ const getFriends = async (username) => {
 
 // Fetch User's trips
 const getTrips = async(username) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/trips/${username}`, {
+    var res = await fetch(`/trips/${username}`, {
         method: 'GET'
     });
     return res.json();
@@ -33,21 +33,21 @@ const getTrips = async(username) => {
 
 // Fetch Places given User, City
 const getPlaces = async(username, city) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/places/${username}/${city}`, {
+    var res = await fetch(`/places/${username}/${city}`, {
         method: 'GET'
     });
     return res.json();
 }
 
 const getFriendRequests = async(username) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/getfriendRequests/${username}`, {
+    var res = await fetch(`/getfriendRequests/${username}`, {
         method: 'GET'
     });
     return res.json();
 }
 
 const postTrip = async(data) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/addTrip`, {
+    var res = await fetch(`/addTrip`, {
         method: 'POST',
         body: JSON.stringify(data),
         header: {
@@ -58,7 +58,7 @@ const postTrip = async(data) => {
 }
 
 const postPlace = async(data) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/addPlace`, {
+    var res = await fetch(`/addPlace`, {
         method: 'POST',
         body: JSON.stringify(data),
         header: {
@@ -69,7 +69,7 @@ const postPlace = async(data) => {
 }
 
 const addUser = async(data) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/addUser`, {
+    var res = await fetch(`/addUser`, {
         method: 'POST',
         body: JSON.stringify(data),
         header: {
@@ -80,7 +80,7 @@ const addUser = async(data) => {
 }
 
 const sendFriendRequest = async(data) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/sendFriendRequest`, {
+    var res = await fetch(`/sendFriendRequest`, {
         method: 'POST',
         body: JSON.stringify(data),
         header: {
@@ -91,7 +91,7 @@ const sendFriendRequest = async(data) => {
 }
 
 const confirmFriendRequest = async(data) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/confirmFriendRequest`, {
+    var res = await fetch(`/confirmFriendRequest`, {
         method: 'POST',
         body: JSON.stringify(data),
         header: {
@@ -102,7 +102,7 @@ const confirmFriendRequest = async(data) => {
 }
 
 const denyFriendRequest = async(data) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/denyFriendRequest`, {
+    var res = await fetch(`/denyFriendRequest`, {
         method: 'POST',
         body: JSON.stringify(data),
         header: {

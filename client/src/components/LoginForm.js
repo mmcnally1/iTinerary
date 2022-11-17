@@ -9,7 +9,7 @@ export default function LoginForm(props) {
 
     const onLogin = (values) => {
         authenticateUser(values.username, values.password).then((res) => {
-            console.log(res);
+            //console.log(res);
             if (res.results.length == 1) {
                 sessionStorage.setItem('active user', res.results[0].username);
                 navigate(`/profile/${res.results[0].username}`);
