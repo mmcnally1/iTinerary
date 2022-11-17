@@ -31,7 +31,7 @@ export default function NavBar(props) {
                     <CNavbarBrand href='/'>Home</CNavbarBrand>
                     <CNavbarNav>
                         <CNavItem>
-                            <CNavLink href={`/profile/${activeUser}`}
+                            <CNavLink href={`/profilePage/${activeUser}`}
                                 disabled={
                                     (activeUser === '')
                                     ? true
@@ -41,7 +41,7 @@ export default function NavBar(props) {
                             </CNavLink>
                         </CNavItem>
                         <CNavItem>
-                            <CNavLink href={`/friends/${activeUser}`}
+                            <CNavLink href={`/friendsPage/${activeUser}`}
                                 disabled={
                                     (activeUser === '')
                                     ? true
@@ -59,7 +59,7 @@ export default function NavBar(props) {
                                 placeholder="Search for Users"
                                 onChange={handleChange} />
                             <CButton type="submit"
-                                href={`/profile/${input}`}>
+                                href={`/profilePage/${input}`}>
                                 Search
                             </CButton>
                         </CForm>

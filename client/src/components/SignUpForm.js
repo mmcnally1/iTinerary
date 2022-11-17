@@ -29,7 +29,7 @@ export default function SignUpForm(props) {
                 if (res.ok) {
                     console.log(JSON.parse(data).message);
                     sessionStorage.setItem('active user', values.username);
-                    navigate(`/profile/${values.username}`);
+                    navigate(`/profilePage/${values.username}`);
                 } else {
                     alert(JSON.parse(data).message);
                 }

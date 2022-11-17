@@ -16,8 +16,8 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/profile/:user" element={<UserPage />} />
-                <Route path="/friends/:user" element={<FriendsPage />} />
+                <Route path="/profilePage/:user" element={<UserPage />} />
+                <Route path="/friendsPage/:user" element={<FriendsPage />} />
             </Routes>
         </BrowserRouter>
     )
