@@ -52,7 +52,7 @@ export default function Map({ markers, clickFn, location, setLocation }) {
     whenCreated={setLeafletMap}>
     <TileLayer
       attribution='&copy; <a href="https:www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https:{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
     <ResetViewControl
       title="Reset view"
       icon="&#x21ba"
