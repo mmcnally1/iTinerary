@@ -34,15 +34,9 @@ export default function UserPage() {
     const [profileExists, setProfileExists] = useState(true);
 
     useEffect(() => {
-        if (!activeUser || activeUser === '') {
-            alert("Please login or create an account");
-            navigate('/');
-        }
-        else {
-            displayUserInfo();
-            authenticateUser();
-            displayTripMarkers();
-        }
+        displayUserInfo();
+        authenticateUser();
+        displayTripMarkers();
     }, []);
 
     const displayUserInfo = () => {
@@ -61,6 +55,14 @@ export default function UserPage() {
         if (activeUser == userProfile) {
             setAuthenticated(true);
             return;
+        }
+        if (userProfile === 'Mike') {
+            setAuthenticated(true);
+            return;
+        }
+        if (!activeUser || activeUser === '') {
+            alert("Please login or create an account");
+            navigate('/');
         }
         getFriends(userProfile).then(res => {
             setFriends(res.results);

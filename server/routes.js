@@ -252,7 +252,7 @@ async function addUser(req, res) {
         connection.query(
             `
             INSERT INTO User
-            VALUES ('${data.username}', '${data.bio}', '${data.password}')
+            VALUES ('${data.username}', '${data.bio}', '${data.password}', false)
             `,
             function (error, results, fields) {
                 if (error) {
