@@ -232,12 +232,12 @@ async function addPlace(req, res) {
                 }).
                 catch(err => {
                     console.log(err);
-                    res.json({ error: error });
+                    res.json({ error: err });
                 })
             })
             .catch(err => {
                 console.log(err);
-                res.json({ error: error });
+                res.json({ error: err });
             });
     });
 }
