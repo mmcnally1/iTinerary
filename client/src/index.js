@@ -9,6 +9,7 @@ import {
 import HomePage from './pages/HomePage';
 import FriendsPage from './pages/FriendsPage';
 import UserPage from './pages/UserPage';
+import AccountPage from './pages/AccountPage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/profilePage/:user" element={<UserPage />} />
                 <Route path="/friendsPage/:user" element={<FriendsPage />} />
+                <Route path="/account/:user" element={<AccountPage />} />
             </Routes>
         </BrowserRouter>
     )

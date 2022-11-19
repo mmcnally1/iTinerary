@@ -339,6 +339,34 @@ async function denyFriendRequest(req, res) {
     });
 }
 
+async function deleteFriend(req, res) {
+
+}
+
+async function changePassword(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            UPDATE User
+            SET password = '${data.new_password}'
+            WHERE username = '${data.username}'
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Unable to change password" })
+                } else {
+                    res.status(200).send({ message: "Password updated!" })
+                }
+            });
+    });
+}
+
 module.exports = {
     authenticateUser,
     getUserInfo,
@@ -351,5 +379,7 @@ module.exports = {
     addUser,
     sendFriendRequest,
     confirmFriendRequest,
-    denyFriendRequest
+    denyFriendRequest,
+    deleteFriend,
+    changePassword
 };

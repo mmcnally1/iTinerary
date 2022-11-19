@@ -112,6 +112,17 @@ const denyFriendRequest = async(data) => {
     return res;
 }
 
+const changePassword = async(data) => {
+    var res = await fetch('/changePassword', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
 export {
     authenticateUser,
     getUserInfo,
@@ -124,5 +135,6 @@ export {
     addUser,
     sendFriendRequest,
     confirmFriendRequest,
-    denyFriendRequest
+    denyFriendRequest,
+    changePassword
 }

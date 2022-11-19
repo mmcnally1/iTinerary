@@ -50,6 +50,16 @@ export default function NavBar(props) {
                                 Friends
                             </CNavLink>
                         </CNavItem>
+                        <CNavItem>
+                            <CNavLink href={`/account/${activeUser}`}
+                                disabled={
+                                    (activeUser === '')
+                                    ? true
+                                    : false
+                                }>
+                                Account
+                            </CNavLink>
+                        </CNavItem>
                         <CForm
                             className="d-flex"
                         >

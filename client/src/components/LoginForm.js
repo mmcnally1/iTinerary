@@ -42,17 +42,17 @@ export default function LoginForm(props) {
                     label="Username"
                     name="username"
                 >
-                <Input />
+                    <Input />
                 </Form.Item>
                 <Form.Item
                     label="Password"
                     name="password"
                 >
-                <Input.Password />
+                    <Input.Password />
                 </Form.Item>
                 <Form.Item>
                     <Button
-                    htmlType="submit"
+                        htmlType="submit"
                     >Login
                     </Button>
                 </Form.Item>
