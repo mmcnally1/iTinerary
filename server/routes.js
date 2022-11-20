@@ -282,7 +282,7 @@ async function sendFriendRequest(req, res) {
         function(error, results, fields) {
             if (error) {
                 console.log(error);
-                res.status(400).send({ message: "Send friend request failed" });
+                res.status(400).send({ message: "Friend request has already been sent" });
             } else {
                 res.status(200).send({ message: "Friend request sent"});
             }
@@ -339,8 +339,28 @@ async function denyFriendRequest(req, res) {
     });
 }
 
-async function deleteFriend(req, res) {
-
+async function removeFriend(req, res) {
+    var body = ''
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            DELETE FROM Friends
+            WHERE ((requester = '${data.user}' AND requested = '${data.friend}') OR
+                   (requester = '${data.friend}' AND requested = '${data.user}'))
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Remove friend failed" })
+                } else {
+                    res.status(200).send({ message: "Friend removed" })
+                }
+            });
+    });
 }
 
 async function changePassword(req, res) {
@@ -380,6 +400,6 @@ module.exports = {
     sendFriendRequest,
     confirmFriendRequest,
     denyFriendRequest,
-    deleteFriend,
+    removeFriend,
     changePassword
 };

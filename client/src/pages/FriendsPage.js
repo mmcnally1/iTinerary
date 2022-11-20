@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getFriends, getFriendRequests, confirmFriendRequest, denyFriendRequest } from '../fetcher.js';
+import { getFriends, getFriendRequests, confirmFriendRequest, denyFriendRequest, removeFriend } from '../fetcher.js';
 import NavBar from '../components/NavBar';
 import FriendList from '../components/FriendList';
 import FriendRequests from '../components/FriendRequests'
@@ -27,6 +27,12 @@ export default function FriendsPage() {
     const displayFriendRequests = () => {
         getFriendRequests(userProfile).then(res => {
             setFriendRequests(res.results);
+        });
+    }
+
+    const displayFriends = () => {
+        getFriends(userProfile).then(res => {
+            setFriends(res.results);
         });
     }
 
@@ -57,6 +63,7 @@ export default function FriendsPage() {
                 if (res.ok) {
                     console.log(JSON.parse(data).message);
                     displayFriendRequests();
+                    displayFriends();
                 } else {
                     alert(JSON.parse(data).message);
                 }
@@ -66,11 +73,25 @@ export default function FriendsPage() {
 
     const handleDenyFriendRequest = (values) => {
         denyFriendRequest(values).then((res) => {
-            console.log(res);
             res.text().then((data) => {
                 if (res.ok) {
                     console.log(JSON.parse(data).message);
                     displayFriendRequests();
+                    displayFriends();
+                } else {
+                    alert(JSON.parse(data).message);
+                }
+            })
+        })
+    }
+
+    const handleRemoveFriend = (values) => {
+        removeFriend(values).then((res) => {
+            res.text().then((data) => {
+                if (res.ok) {
+                    displayFriendRequests();
+                    displayFriends();
+                    console.log(JSON.parse(data).message);
                 } else {
                     alert(JSON.parse(data).message);
                 }
@@ -86,7 +107,9 @@ export default function FriendsPage() {
     }
 
     const friendListProps = {
-        friends: friends
+        friends: friends,
+        username: userProfile,
+        handleRemoveFriend = handleRemoveFriend
     }
 
     const navbarProps = {

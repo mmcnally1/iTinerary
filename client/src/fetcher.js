@@ -123,6 +123,17 @@ const changePassword = async(data) => {
     return res;
 }
 
+const removeFriend = async(data) => {
+    var res = await fetch('/removeFriend', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
 export {
     authenticateUser,
     getUserInfo,
@@ -136,5 +147,6 @@ export {
     sendFriendRequest,
     confirmFriendRequest,
     denyFriendRequest,
-    changePassword
+    changePassword,
+    removeFriend
 }

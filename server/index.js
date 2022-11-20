@@ -41,7 +41,7 @@ app.post('/confirmFriendRequest', routes.confirmFriendRequest);
 
 app.post('/denyFriendRequest', routes.denyFriendRequest);
 
-app.post('/deleteFriend', routes.deleteFriend);
+app.post('/removeFriend', routes.removeFriend);
 
 app.post('/changePassword', routes.changePassword);
 
