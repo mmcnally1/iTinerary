@@ -6,7 +6,7 @@ import SignUpForm from '../components/SignUpForm';
 import NavBar from '../components/NavBar';
 
 export default function HomePage() {
-  const activeUser = sessionStorage.getItem('active user');
+  const [activeUser, setActiveUser] = useState(sessionStorage.getItem('active user'));
 
   const [signingUp, setSigningUp] = useState(false);
 
@@ -14,7 +14,9 @@ export default function HomePage() {
   { position: [41.882, -87.623], content: <><b>Welcome to Chicago</b> <br /> Home of the Twinkie </> }]
 
   const navbarProps = {
-      activeUser: activeUser
+      activeUser: activeUser,
+      onHomePage: true,
+      setActiveUser: setActiveUser
   }
 
   const props = {

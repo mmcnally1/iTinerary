@@ -16,7 +16,7 @@ import '../static/main.css';
 
 export default function NavBar(props) {
     const navigate = useNavigate();
-    const activeUser = props.activeUser;
+    const [activeUser, setActiveUser] = useState(props.activeUser);
     const [input, setInput] = useState('')
 
     const handleChange = (e) => {
@@ -77,8 +77,14 @@ export default function NavBar(props) {
                             <button
                                 className='logout-button'
                                 onClick={() => {
-                                    sessionStorage.setItem('active user', '');
-                                    navigate('/');
+                                    if (props.onHomePage) {
+                                        sessionStorage.setItem('active user', '');
+                                        props.setActiveUser('');
+                                    }
+                                    else {
+                                        sessionStorage.setItem('active user', '');
+                                        navigate('/');
+                                    }
                                 }}
                             >
                                 Logout

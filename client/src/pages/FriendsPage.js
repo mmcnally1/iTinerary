@@ -113,7 +113,8 @@ export default function FriendsPage() {
     }
 
     const navbarProps = {
-        activeUser: activeUser
+        activeUser: activeUser,
+        onHomePage: false
     }
 
     return (

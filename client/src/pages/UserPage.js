@@ -116,7 +116,8 @@ export default function UserPage() {
     }
 
     const navbarProps = {
-        activeUser: activeUser
+        activeUser: activeUser,
+        onHomePage: false
     }
 
     return (

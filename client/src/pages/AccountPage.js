@@ -10,7 +10,7 @@ const bcrypt = require('bcryptjs');
 export default function AccountPage() {
     const navigate = useNavigate();
     let userProfile = useParams().user;
-    
+
     const [activeUser, setActiveUser] = useState(sessionStorage.getItem('active user'));
     const [displayTrips, setDisplayTrips] = useState(true);
     const [displayPlaces, setDisplayPlaces] = useState(false);
@@ -54,7 +54,8 @@ export default function AccountPage() {
     }
 
     const navbarProps = {
-        activeUser: activeUser
+        activeUser: activeUser,
+        onHomePage: false
     }
 
     return (
