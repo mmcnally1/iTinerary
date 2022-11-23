@@ -27,7 +27,7 @@ function Markers({ markers, clickFn }) {
           click: (e) => {
             console.log(item);
             clickFn(item.position, item.city);
-            leafletMap.setView(item.position, 10);
+            leafletMap.setView(item.position, 9);
           }
         }}>
         <Popup>
