@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
+import DatePicker from 'react-datepicker';
 
 import { postTrip, postPlace } from '../fetcher.js';
 import PlaceAdder from './PlaceAdder.js';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function TripAdder({ username, displayMarkers, location, setLocation }) {
 
     const [startedTrip, setStartedTrip] = useState(false);
     const [city, setCity] = useState('');
-    const [start, setStart] = useState('');
-    const [end, setEnd] = useState('');
+    const [start, setStart] = useState(new Date());
+    const [end, setEnd] = useState(new Date());
     const [coords, setCoords] = useState([]);
     const [places, setPlaces] = useState([])
 
@@ -46,8 +48,8 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
 
         let data = new Object();
         data.city = city;
-        data.start = start;
-        data.end = end;
+        data.start = start.toJSON().slice(0,10);
+        data.end = end.toJSON().slice(0,10);
         data.places = places;
 
         trip.data = data;
@@ -72,20 +74,28 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
             <br />
             <label>
                 Start Date <br />
-                <input type="date"
-                    value={start}
-                    placeholder="YYYY-mm-dd"
-                    onChange={e => setStart(e.target.value)}
-                    required />
+                <DatePicker
+                    selected={start}
+                    onChange={(date) => {
+                        setStart(date);
+                        }
+                    }
+                    popperPlacement="right"
+                    required
+                />
             </label>
             <br />
             <label>
                 End Date <br />
-                <input type="date"
-                    value={end}
-                    placeholder="YYYY-mm-dd"
-                    onChange={e => setEnd(e.target.value)}
-                    required />
+                <DatePicker
+                    selected={end}
+                    onChange={(date) => {
+                        setEnd(date);
+                        }
+                    }
+                    popperPlacement="right"
+                    required
+                />
             </label>
             <br />
             <button onClick={handleTrip}>Add Points of Interest</button>

@@ -44,6 +44,7 @@
     "gh-pages": "^4.0.0",
     "leaflet": "^1.8.0",
     "react": "^18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.2",
     "react-leaflet": "^4.0.2",

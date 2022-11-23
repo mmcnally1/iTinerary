@@ -149,8 +149,7 @@ async function addTrip(req, res) {
         opencage
             .geocode(
                 {
-                    key: 'c46c23c2c22b48bf8f0b6baf4742877f',
-                    //key: process.env.REACT_APP_GEOCODING_API_KEY,
+                    key: process.env.REACT_APP_GEOCODING_API_KEY,
                     limit: 1,
                     q: data.city
                 }
@@ -190,8 +189,7 @@ async function addPlace(req, res) {
         opencage
             .geocode(
                 {
-                    key: 'c46c23c2c22b48bf8f0b6baf4742877f',
-                    //key: process.env.REACT_APP_GEOCODING_API_KEY,
+                    key: process.env.REACT_APP_GEOCODING_API_KEY,
                     limit: 1,
                     q: data.city,
                 }
@@ -208,8 +206,7 @@ async function addPlace(req, res) {
                 opencage
                     .geocode(
                     {
-                        key: 'c46c23c2c22b48bf8f0b6baf4742877f',
-                        //: process.env.REACT_APP_GEOCODING_API_KEY,
+                        key: process.env.REACT_APP_GEOCODING_API_KEY,
                         limit: 1,
                         q: data.name,
                         bounds: bounds
