@@ -12,10 +12,10 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
     const [city, setCity] = useState('');
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState(new Date());
-    const [coords, setCoords] = useState([]);
     const [places, setPlaces] = useState([])
 
-    const onFinish = () => {
+    const onFinish = (e) => {
+        e.preventDefault();
         let values = JSON.parse(sessionStorage.getItem('trip'));
         values.username = username;
         let tripValues = new Object();
@@ -35,7 +35,21 @@ export default function TripAdder({ username, displayMarkers, location, setLocat
             postPlace(place);
         });
 
-        postTrip(tripValues)
+        postTrip(tripValues).then((res) => {
+            res.text().then((data) => {
+                if (res.ok) {
+                    console.log(JSON.parse(data).message);
+                    displayMarkers();
+                } else {
+                    alert(JSON.parse(data).message);
+                }
+            })
+        })
+        setStartedTrip(false);
+        setCity('');
+        setStart(new Date());
+        setEnd(new Date());
+        setPlaces([]);
     }
 
     const handleTrip = () => {

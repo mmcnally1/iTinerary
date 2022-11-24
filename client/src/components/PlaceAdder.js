@@ -23,7 +23,6 @@ export function LocationMarkers({ location, setLocation }) {
 export default function PlaceAdder({ location, setLocation, places, setPlaces }) {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [files, setFiles] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -37,7 +36,6 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
         place.location = location;
         place.name = name;
         place.description = description;
-        place.files = files;
 
         let places = [...trip.data.places, place];
         trip.data.places = places;
@@ -45,7 +43,6 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
         setPlaces([...places, place]);
         setName('');
         setDescription('');
-        setFiles([]);
         console.log(JSON.parse(sessionStorage.getItem('trip')));
     }
 
@@ -70,7 +67,6 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
                 onChange={e => setDescription(e.target.value)} />
             </label>
             <br />
-            <Previews files={files} setFiles={setFiles} />
             <input type="submit" value="Add Location" onClick={handleSubmit} disabled={name.length === 0 || description.length === 0} />
         </div>
     );
