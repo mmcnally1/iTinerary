@@ -28,6 +28,10 @@ app.get('/places/:username/:city', routes.getPlaces);
 
 app.get('/getFriendRequests/:username', routes.getFriendRequests);
 
+app.get('/search/city/:city', routes.searchCity);
+
+app.get('/search/place/:place/:bounds', routes.searchPlace);
+
 // Route 5: Add trip to database
 app.post('/addTrip', routes.addTrip);
 

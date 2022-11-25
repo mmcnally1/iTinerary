@@ -139,6 +139,50 @@ async function getFriendRequests(req, res) {
     )
 }
 
+async function searchCity(req, res) {
+    const city = req.params.city;
+
+    opencage
+        .geocode(
+            {
+                key: process.env.REACT_APP_GEOCODING_API_KEY,
+                limit: 10,
+                q: city
+            }
+        ).then(response => {
+            response.results.map(i => {
+                i.display = i.formatted;
+                i.lat = i.geometry.lat;
+                i.long = i.geometry.lng;
+                i.city = i.components.city ? i.components.city : city;
+            })
+            res.json({ results: response.results })
+        })
+}
+
+async function searchPlace(req, res) {
+    const place = req.params.place;
+    const bounds = req.params.bounds;
+
+    opencage
+        .geocode(
+            {
+                key: process.env.REACT_APP_GEOCODING_API_KEY,
+                limit: 10,
+                q: place,
+                bounds: bounds
+            }
+        ).then(response => {
+            response.results.map(i => {
+                i.display = i.formatted;
+                i.lat = i.geometry.lat;
+                i.long = i.geometry.lng;
+                i.place = i.formatted.split(",")[0]
+            })
+            res.json({ results: response.results })
+        })
+}
+
 async function addTrip(req, res) {
     var body = '';
     req.on('data', (data) => {
@@ -146,99 +190,46 @@ async function addTrip(req, res) {
     });
     req.on('end', () => {
         var data = JSON.parse(body);
-        opencage
-            .geocode(
-                {
-                    key: process.env.REACT_APP_GEOCODING_API_KEY,
-                    limit: 1,
-                    q: data.city
+        connection.query(
+            `
+            INSERT INTO City
+            VALUES ('${data.username}', '${data.city}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
+            `,
+            function (error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Unable to add trip. May be a duplicate trip, or try a more specific search" });
+                } else {
+                    res.status(200).send({ message: "Trip Added!" });
                 }
-            )
-            .then(response => {
-                data.lat = response.results[0].geometry.lat;
-                data.long = response.results[0].geometry.lng;
-                connection.query(
-                    `
-                    INSERT INTO City
-                    VALUES ('${data.username}', '${data.city}', ${data.lat}, ${data.long}, '${data.start_date}', '${data.end_date}')
-                    `,
-                    function (error, results, fields) {
-                        if (error) {
-                            console.log(error);
-                            res.status(400).send({ message: "Unable to add trip. May be a duplicate trip, or try a more specific search" });
-                        } else {
-                            res.status(200).send({ message: "Trip Added!" });
-                        }
-                    }
-                );
-            })
-            .catch(err => {
-                console.log(err);
-            });
+            }
+        );
     });
 }
 
 async function addPlace(req, res) {
-    var body = '';
+    var body = ''
     var bounds = ''
     req.on('data', (data) => {
         body += data;
     });
     req.on('end', () => {
         var data = JSON.parse(body);
-        opencage
-            .geocode(
-                {
-                    key: process.env.REACT_APP_GEOCODING_API_KEY,
-                    limit: 1,
-                    q: data.city,
-                }
-            )
-            .then(tResponse => {
-                let minLng = parseFloat(tResponse.results[0].geometry.lng) - 5;
-                bounds += minLng.toString() + ',';
-                let minLat = parseFloat(tResponse.results[0].geometry.lat) - 5;
-                bounds += minLat.toString() + ',';
-                let maxLng= parseFloat(tResponse.results[0].geometry.lng) + 5;
-                bounds += maxLng.toString() + ',';
-                let maxLat = parseFloat(tResponse.results[0].geometry.lat) + 5;
-                bounds += maxLat.toString();
-                opencage
-                    .geocode(
-                    {
-                        key: process.env.REACT_APP_GEOCODING_API_KEY,
-                        limit: 1,
-                        q: data.name,
-                        bounds: bounds
-                    }
-                ).then(dResponse => {
-                    data.lat = dResponse.results[0].geometry.lat;
-                    data.long = dResponse.results[0].geometry.lng;
-                    connection.query(
-                        `
-                        INSERT INTO Place
-                        VALUES ('${data.username}', '${data.city}', '${data.name}', '${data.description}', '${data.lat}', '${data.long}')
+        connection.query(
+            `
+            INSERT INTO Place
+            VALUES ('${data.username}', '${data.city}', '${data.name}', '${data.description}', '${data.lat}', '${data.long}')
 
-                        `,
-                        function(error, results, fields) {
-                            if (error) {
-                                console.log(error);
-                                res.json({ error: error });
-                            } else if (results) {
-                                res.json({ results: results });
-                            }
-                        }
-                    )
-                }).
-                catch(err => {
-                    console.log(err);
-                    res.json({ error: err });
-                })
-            })
-            .catch(err => {
-                console.log(err);
-                res.json({ error: err });
-            });
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Unable to add place" });
+                } else if (results) {
+                    res.status(200).send({ message: "Place added!" });
+                }
+            }
+        );
     });
 }
 
@@ -401,5 +392,7 @@ module.exports = {
     confirmFriendRequest,
     denyFriendRequest,
     removeFriend,
-    changePassword
+    changePassword,
+    searchCity,
+    searchPlace
 };

@@ -46,6 +46,20 @@ const getFriendRequests = async(username) => {
     return res.json();
 }
 
+const searchCity = async(city) => {
+    var res = await fetch(`/search/city/${city}`, {
+        method: 'GET'
+    });
+    return res.json();
+}
+
+const searchPlace = async(place, bounds) => {
+    var res = await fetch(`/search/place/${place}/${bounds}`, {
+        method: 'GET'
+    });
+    return res.json();
+}
+
 const postTrip = async(data) => {
     var res = await fetch(`/addTrip`, {
         method: 'POST',
@@ -148,5 +162,7 @@ export {
     confirmFriendRequest,
     denyFriendRequest,
     changePassword,
-    removeFriend
+    removeFriend,
+    searchCity,
+    searchPlace
 }

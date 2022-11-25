@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Marker, Popup, useMapEvents } from 'react-leaflet';
-import { Previews, Dropzone } from './DropZone.js';
+import { Button, Table } from 'antd';
+import { searchPlace } from '../fetcher.js';
 
 export function LocationMarkers({ location, setLocation }) {
   //const { location, setLocation } = useContext(LocationContext);
@@ -20,9 +21,52 @@ export function LocationMarkers({ location, setLocation }) {
   )
 }
 
-export default function PlaceAdder({ location, setLocation, places, setPlaces }) {
+export default function PlaceAdder({ location, setLocation, places, setPlaces, bounds }) {
     const [name, setName] = useState('')
+    const [lat, setLat] = useState(0.0)
+    const [lng, setLng] = useState(0.0)
     const [description, setDescription] = useState('')
+    const [placeOptions, setPlaceOptions] = useState([])
+
+    const placesTableColumns = [
+        {
+            dataIndex: 'display',
+            key: 'display',
+        },
+        {
+            dataIndex: 'lat',
+            key: 'lat',
+        },
+        {
+            dataIndex: 'long',
+            key: 'long'
+        },
+        {
+            dataIndex: 'place',
+            key: 'place',
+            render: (_, row) => (
+                <Button
+                    type="default"
+                    onClick={() => {
+                        setName(row.place);
+                        setLat(row.lat);
+                        setLng(row.long);
+                        setPlaceOptions([]);
+                    }}
+                >
+                    Select Place
+                </Button>
+            )
+        }
+    ]
+
+    const placeOnClick = (e) => {
+        e.preventDefault();
+
+        searchPlace(name, bounds).then(res => {
+            setPlaceOptions(res.results);
+        })
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -35,6 +79,8 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
         place.id = crypto.randomUUID();
         place.location = location;
         place.name = name;
+        place.lat = lat;
+        place.long = lng;
         place.description = description;
 
         let places = [...trip.data.places, place];
@@ -56,6 +102,16 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces })
                     value={name}
                     onChange={e => setName(e.target.value)} />
             </label>
+            <button onClick={placeOnClick}>Search Place</button>
+            {placeOptions.length > 0 ?
+            <Table
+                dataSource={placeOptions}
+                columns={placesTableColumns}
+                bordered={true}
+                expandable={true}
+                pagination={false}
+                size='small'
+                /> : <br />}
             <br />
             <label>
                 Description <br />
