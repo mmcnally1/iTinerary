@@ -70,10 +70,12 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces, b
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
         if (name === '' || description === '') {
             alert("Please fill all fields and select a location");
             return;
         }
+
         let trip = JSON.parse(sessionStorage.getItem("trip"));
         let place = new Object();
         place.id = crypto.randomUUID();
@@ -81,7 +83,7 @@ export default function PlaceAdder({ location, setLocation, places, setPlaces, b
         place.name = name;
         place.lat = lat;
         place.long = lng;
-        place.description = description;
+        place.description = description.replaceAll(/'/g, "\\'").replaceAll(/"/g, '\\"');
 
         let places = [...trip.data.places, place];
         trip.data.places = places;
