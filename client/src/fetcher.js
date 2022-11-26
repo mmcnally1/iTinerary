@@ -148,6 +148,50 @@ const removeFriend = async(data) => {
     return res;
 }
 
+const updateTrip = async(data) => {
+    var res = await fetch('/updateTrip', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
+const deleteTrip = async(data) => {
+    var res = await fetch('/deleteTrip', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
+const updatePlace = async(data) => {
+    var res = await fetch('/updatePlace', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
+const deletePlace = async(data) => {
+    var res = await fetch('/deletePlace', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        header: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    return res;
+}
+
 export {
     authenticateUser,
     getUserInfo,
@@ -164,5 +208,9 @@ export {
     changePassword,
     removeFriend,
     searchCity,
-    searchPlace
+    searchPlace,
+    updateTrip,
+    deleteTrip,
+    updatePlace,
+    deletePlace
 }

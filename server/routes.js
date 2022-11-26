@@ -378,6 +378,100 @@ async function changePassword(req, res) {
     });
 }
 
+async function updateTrip(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            UPDATE City
+            SET start_date = '${data.start_date}'
+            WHERE username = '${data.username}' AND city_name = '${data.city}'
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Update failed" })
+                } else {
+                    res.status(200).send({ message: "Dates updated!" })
+                }
+            });
+    });
+}
+
+async function deleteTrip(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            DELETE FROM City
+            WHERE username = '${data.username}' AND city_name = '${data.city}'
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Unable to delete trip" })
+                } else {
+                    res.status(200).send({ message: "Trip deleted!" })
+                }
+            });
+    });
+}
+
+async function updatePlace(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            UPDATE Place
+            SET description = '${data.description}'
+            WHERE username = '${data.username}' AND city_name = '${data.city}' AND place_name = '${data.place}'
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Update failed" })
+                } else {
+                    res.status(200).send({ message: "Dates updated!" })
+                }
+            });
+    });
+}
+
+async function deletePlace(req, res) {
+    var body = '';
+    req.on('data', (data) => {
+        body += data;
+    });
+    req.on('end', () => {
+        var data = JSON.parse(body);
+        connection.query(
+            `
+            DELETE FROM Place
+            WHERE username = '${data.username}' AND city_name = '${data.city}' AND place_name = '${data.place}'
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ message: "Unable to delete trip" })
+                } else {
+                    res.status(200).send({ message: "Trip deleted!" })
+                }
+            });
+    });
+}
+
 module.exports = {
     authenticateUser,
     getUserInfo,
@@ -394,5 +488,9 @@ module.exports = {
     removeFriend,
     changePassword,
     searchCity,
-    searchPlace
+    searchPlace,
+    updateTrip,
+    deleteTrip,
+    updatePlace,
+    deletePlace
 };

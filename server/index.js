@@ -49,6 +49,14 @@ app.post('/removeFriend', routes.removeFriend);
 
 app.post('/changePassword', routes.changePassword);
 
+app.post('/updateTrip', routes.updateTrip);
+
+app.post('/deleteTrip', routes.deleteTrip);
+
+app.post('/updatePlace', routes.updatePlace);
+
+app.post('/deletePlace', routes.deletePlace);
+
 app.get("*", (req, res, next) => {
     res.sendFile(
         path.resolve(__dirname, "./public/index.html")
