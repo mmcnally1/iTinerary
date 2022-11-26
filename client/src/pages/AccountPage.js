@@ -204,6 +204,7 @@ export default function AccountPage() {
             {showTrips && !editTrip &&
                 <>
                     <div>
+                        <h2>Edit Account Info</h2>
                         <Form
                             name="email"
                             layout="horizontal"
@@ -236,7 +237,7 @@ export default function AccountPage() {
                         </Form>
                     </div>
                     <div>
-                        <h3>Trips</h3>
+                        <h3>Edit Trips</h3>
                         <TripTable {...tripProps} />
                     </div>
                 </>
@@ -277,7 +278,7 @@ export default function AccountPage() {
                 {!showTrips && !editPlace &&
                     <>
                         <div>
-                            <h3>{city}</h3>
+                            <h3>Edit {city} Places</h3>
                             <PlaceTable {...placeProps} />
                         </div>
                     </>
@@ -285,7 +286,7 @@ export default function AccountPage() {
                 {!showTrips && editPlace &&
                     <>
                         <div>
-                            <h3>Edit {place}</h3>
+                            <h3>Edit {place} Description</h3>
                             <textarea
                                 value={description}
                                 rows="10"

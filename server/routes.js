@@ -394,11 +394,24 @@ async function updateTrip(req, res) {
             function(error, results, fields) {
                 if (error) {
                     console.log(error);
-                    res.status(400).send({ message: "Update failed" })
                 } else {
-                    res.status(200).send({ message: "Dates updated!" })
                 }
             });
+        connection.query(
+            `
+            UPDATE City
+            SET end_date = '${data.end_date}'
+            WHERE username = '${data.username}' AND city_name = '${data.city}'
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    res.status(400).send({ mesage: "Update trip failed" });
+                } else {
+                    res.status(200).send({ message: "Dates updated!" });
+                }
+            }
+        )
     });
 }
 
