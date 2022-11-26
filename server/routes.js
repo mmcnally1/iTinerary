@@ -411,15 +411,25 @@ async function deleteTrip(req, res) {
         var data = JSON.parse(body);
         connection.query(
             `
+            DELETE FROM Place
+            WHERE username = '${data.username}' AND city_name = '${data.city}'
+            `,
+            function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                }
+            });
+        connection.query(
+            `
             DELETE FROM City
             WHERE username = '${data.username}' AND city_name = '${data.city}'
             `,
             function(error, results, fields) {
                 if (error) {
                     console.log(error);
-                    res.status(400).send({ message: "Unable to delete trip" })
+                    res.status(400).send({ message: "Unable to delete trip" });
                 } else {
-                    res.status(200).send({ message: "Trip deleted!" })
+                    res.status(200).send({ message: "Trip deleted!" });
                 }
             });
     });
